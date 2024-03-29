@@ -22,5 +22,8 @@
       <path fill="#ffda44" d="M16 32c8.837 0 16-7.163 16-16S24.837 0 16 0 0 7.163 0 16s7.163 16 16 16z"/>
       <path fill="#338af3" d="M0 16C0 7.164 7.163 0 16 0s16 7.163 16 16z"/>
     </symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24">
+      <path d="M3 13h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0-6h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2zm0 12h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2z"/>
+    </symbol>
   </defs>
 </svg>

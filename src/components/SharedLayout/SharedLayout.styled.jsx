@@ -5,7 +5,8 @@ export const MainSection = styled.main`
 `
 
 export const ContainerHeader = styled.div`
-    width: 1312px;
+    max-width: 1312px;
+    width: 100%;
     padding: 20px 64px;
     margin: 0 auto;
     display: flex;

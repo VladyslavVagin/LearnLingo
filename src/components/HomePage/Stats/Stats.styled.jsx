@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StatsContainer = styled.div`
+  width: 100%;
   border: 1.5px dashed var(--accent-color);
   border-radius: 30px;
   height: 116px;
@@ -13,9 +14,10 @@ export const StatsContainer = styled.div`
 
 export const StatsList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  column-gap: 100px;
+  gap: 40px 100px;
 
   li {
     display: flex;

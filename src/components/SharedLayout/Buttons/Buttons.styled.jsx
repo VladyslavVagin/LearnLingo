@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
 export const ButtonsContainer = styled.div`
+  @media screen and (max-width: 899.98px) {
+    display: none;
+  }
+
+  @media screen and (min-width: 900px) {
     display: flex;
     align-items: center;
     column-gap: 16px;
-`
+  }
+`;
 
 export const LogoutBtn = styled.button`
   display: flex;

@@ -6,6 +6,14 @@ export const ImagePartContainer = styled.div`
   height: 498px;
   background-color: var(--accent-light);
   border-radius: 30px;
+
+  @media screen and (min-width: 900px) {
+    width: 720px;
+  }
+
+  @media screen and (min-width: 1326px) {
+    width: 566px;
+  }
 `;
 
 export const ImageBox = styled.div`
@@ -21,6 +29,14 @@ export const ImageBox = styled.div`
     position: absolute;
     top: 9.5%;
     left: 20%;
+
+    @media screen and (min-width: 900px) {
+      left: 26%;
+    }
+
+    @media screen and (min-width: 1326px) {
+      left: 20%;
+    }
   }
 `;
 

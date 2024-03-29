@@ -1,11 +1,15 @@
-import React, { Suspense } from "react";
+// @ts-nocheck
+import React, { Suspense, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Logo from "./Logo/Logo";
 import NavMenu from "./NavMenu/NavMenu";
 import Buttons from "./Buttons/Buttons";
+import BurgerBtn from "./BurgerBtn/BurgerBtn";
 import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 
 const SharedLayout = () => {
+ const [isShowMobile, setIsShowMobile] = useState(false);
+
   return (
     <>
       <header>
@@ -13,6 +17,7 @@ const SharedLayout = () => {
           <Logo />
           <NavMenu />
           <Buttons/>
+          <BurgerBtn isShowMobile={isShowMobile} setIsShowMobile={setIsShowMobile}/>
         </ContainerHeader>
       </header>
       <MainSection>
