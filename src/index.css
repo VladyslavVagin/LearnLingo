@@ -43,6 +43,7 @@
   --accent-light: #fbe9ba;
   --bg-macbook: linear-gradient(180deg, #eeb055 0%, #d08f38 100%);
   --icon-stopColor: #E7C885;
+  --stat-textColor: rgba(18, 20, 23, 0.7);
 }
 
 * {
