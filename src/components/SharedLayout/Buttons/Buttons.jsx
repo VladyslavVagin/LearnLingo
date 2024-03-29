@@ -1,17 +1,18 @@
 import React from 'react'
 import sprite from '../../../icons/icons.svg'
-import { LogoutBtn } from './Buttons.styled'
+import { ButtonsContainer, LogoutBtn, RegisterBtn } from './Buttons.styled'
 
 const Buttons = () => {
   return (
-    <div>
-        <LogoutBtn>
+    <ButtonsContainer>
+        <LogoutBtn type='button'>
           <svg width={20} height={20}>
             <use xlinkHref={`${sprite}#icon-log-out`}></use>
           </svg>
           <p>Log in</p>
         </LogoutBtn>
-    </div>
+      <RegisterBtn type='button'>Registration</RegisterBtn>
+    </ButtonsContainer>
   )
 }
 

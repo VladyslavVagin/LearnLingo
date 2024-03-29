@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Logo from "./Logo/Logo";
 import NavMenu from "./NavMenu/NavMenu";
 import Buttons from "./Buttons/Buttons";
-import { ContainerHeader } from "./SharedLayout.styled";
+import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 
 const SharedLayout = () => {
   return (
@@ -15,11 +15,11 @@ const SharedLayout = () => {
           <Buttons/>
         </ContainerHeader>
       </header>
-      <main>
+      <MainSection>
         <Suspense fallback={<p>Loading...</p>}>
           <Outlet />
         </Suspense>
-      </main>
+      </MainSection>
     </>
   );
 };

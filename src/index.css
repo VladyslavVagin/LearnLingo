@@ -34,6 +34,15 @@
   font-display: swap;
 }
 
+:root {
+  --animation-hover: all 400ms ease;
+  --dark-color: #121417;
+  --white-color: #ffffff;
+  --accent-color: #F4C550;
+  --bg-lightblue: #f8f8f8;
+  --accent-light: #fbe9ba;
+}
+
 * {
   box-sizing: border-box;
 }
