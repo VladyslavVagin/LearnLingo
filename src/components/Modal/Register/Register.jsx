@@ -27,9 +27,9 @@ const schema = yup.object().shape({
 });
 
 const Register = ({ setShowRegister }) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPass, setShowPass] = useState(false);
 
-  const handleShowPassword = () => setShowPassword((prev) => !prev);
+  const handleShowPass = () => setShowPass((prev) => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
     console.log(dataForm);
@@ -70,17 +70,17 @@ const Register = ({ setShowRegister }) => {
           />
           <Label htmlFor="password">
             <StyledField
-              type={showPassword ? "text" : "password"}
+              type={showPass ? "text" : "password"}
               name="password"
               placeholder="Password"
               required
               aria-label="Input for type your password"
             />
-            <div onClick={handleShowPassword}>
+            <div onClick={handleShowPass}>
               <svg width={20} height={20}>
                 <use
                   xlinkHref={
-                    showPassword
+                    showPass
                       ? `${sprite}#icon-eye`
                       : `${sprite}#icon-eye-off`
                   }

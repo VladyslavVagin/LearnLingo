@@ -1,24 +1,24 @@
 import styled from "styled-components";
 
 export const Backdrop = styled.div`
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0.425));
-    z-index: 101;
-`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0.425));
+  z-index: 101;
+`;
 
 export const FormModal = styled.div`
-    background-color: var(--white-color);
-    max-width: 565px;
-    border-radius: 30px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 64px;
-    z-index: 102;
-`
+  background-color: var(--white-color);
+  max-width: 565px;
+  border-radius: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 64px;
+  z-index: 102;
+`;
 
 export const CloseBtn = styled.button`
   outline: none;
@@ -33,8 +33,19 @@ export const CloseBtn = styled.button`
   top: 20px;
   right: 20px;
   z-index: 103;
+  transition: var(--animation-hover);
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+  }
 
   svg {
     stroke: var(--dark-color);
+    transition: var(--animation-hover);
   }
-`
+
+  &:hover svg,
+  &:focus svg {
+    stroke: var(--accent-color);
+  }
+`;
