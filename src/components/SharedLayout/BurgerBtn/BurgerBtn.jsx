@@ -17,7 +17,7 @@ const BurgerBtn = ({ isShowMobile, setIsShowMobile }) => {
   return (
     <BurgerBtnContainer>
       <Button type="button" onClick={() => setIsShowMobile((prev) => !prev)}>
-        <BtnIcon isShowMobile={isShowMobile}></BtnIcon>
+        <BtnIcon isshowmobile={isShowMobile.toString()}></BtnIcon>
       </Button>
     </BurgerBtnContainer>
   );

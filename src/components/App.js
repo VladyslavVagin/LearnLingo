@@ -10,9 +10,9 @@ const App = () => {
     <>
     <Routes>
       <Route path='/' element={<SharedLayout/>}>
-        <Route index path='/home' element={<HomePage/>}/>
-        <Route path='/teachers' element={<Teachers/>}/>
-        <Route path='/favorites' element={<Favorites/>}/>
+        <Route index path='home' element={<HomePage/>}/>
+        <Route path='teachers' element={<Teachers/>}/>
+        <Route path='favorites' element={<Favorites/>}/>
       </Route>
     </Routes>
     </>

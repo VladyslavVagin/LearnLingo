@@ -20,7 +20,7 @@ const SharedLayout = () => {
           <Buttons/>
           <BurgerBtn isShowMobile={isShowMobile} setIsShowMobile={setIsShowMobile}/>
         </ContainerHeader>
-        {isShowMobile && <MobileMenu isShowMobile={isShowMobile}/>}
+        {isShowMobile && <MobileMenu/>}
       </header>
       <MainSection>
         <Suspense fallback={<p>Loading...</p>}>

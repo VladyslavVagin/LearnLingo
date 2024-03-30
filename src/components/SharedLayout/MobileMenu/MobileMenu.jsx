@@ -2,10 +2,10 @@
 import React from "react";
 import { BackdropMobile, MobileMenuContent, MobileNavList, StyledLink } from "./MobileMenu.styled";
 
-const MobileMenu = ({isShowMobile}) => {
+const MobileMenu = () => {
   return (
     <BackdropMobile>
-      <MobileMenuContent isShowMobile={isShowMobile}>
+      <MobileMenuContent>
         <div>
             <MobileNavList>
                 <li>

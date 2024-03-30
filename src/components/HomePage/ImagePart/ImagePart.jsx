@@ -36,8 +36,8 @@ const ImagePart = () => {
                 y2="56.0534"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="var(--accent-light)" />
-                <stop offset="1" stop-color="var(--icon-stopColor)" />
+                <stop stopColor="var(--accent-light)" />
+                <stop offset="1" stopColor="var(--icon-stopColor)" />
               </linearGradient>
               <linearGradient
                 id="paint1_linear_6928_14"
@@ -47,8 +47,8 @@ const ImagePart = () => {
                 y2="56.0534"
                 gradientUnits="userSpaceOnUse"
               >
-                <stop stop-color="var(--accent-light)" />
-                <stop offset="1" stop-color="var(--icon-stopColor)"  />
+                <stop stopColor="var(--accent-light)" />
+                <stop offset="1" stopColor="var(--icon-stopColor)"  />
               </linearGradient>
             </defs>
           </svg>
