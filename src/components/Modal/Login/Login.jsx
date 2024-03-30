@@ -1,9 +1,10 @@
 // @ts-nocheck
-import React from "react";
-import { Formik, Form, Field } from "formik";
+import React, { useState } from "react";
+import { Formik } from "formik";
 import * as yup from "yup";
 import Modal from "../Modal";
-import { FormTitleContainer } from "./Login.styled";
+import sprite from "../../../icons/icons.svg";
+import { FormTitleContainer, Label, StyledField, StyledForm, SubmitBtn } from "./Login.styled";
 
 const initialValues = {
   email: "",
@@ -11,14 +12,17 @@ const initialValues = {
 };
 
 const patternEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{5,20}$/;
 
 const schema = yup.object().shape({
-  email: yup.string().min(5).required(),
-  password: yup.string().min(6).max(16).required(),
+  email: yup.string().email().required(),
+  password: yup.string().min(5).max(16).required(),
 });
 
 const Login = ({ setShowLogin }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleShowPassword = () => setShowPassword(prev => !prev);
+
   const handleSubmit = (dataForm, { resetForm }) => {
     console.log(dataForm);
     resetForm();
@@ -38,8 +42,8 @@ const Login = ({ setShowLogin }) => {
         validationSchema={schema}
         onSubmit={handleSubmit}
       >
-        <Form>
-          <Field
+        <StyledForm>
+          <StyledField
             type="email"
             name="email"
             placeholder="Email"
@@ -47,18 +51,22 @@ const Login = ({ setShowLogin }) => {
             required
             aria-label="Input for type your email"
           />
-          <label htmlFor="password">
-            <Field
-              type="password"
+          <Label htmlFor="password">
+            <StyledField
+              type={showPassword ? "text" : "password"}
               name="password"
               placeholder="Password"
-              pattern={passwordPattern}
               required
               aria-label="Input for type your password"
             />
-          </label>
-          <button type="submit">Log In</button>
-        </Form>
+            <div onClick={handleShowPassword}>
+              <svg width={20} height={20}>
+                <use xlinkHref={showPassword ? `${sprite}#icon-eye` : `${sprite}#icon-eye-off`}></use>
+              </svg>
+            </div>
+          </Label>
+          <SubmitBtn type="submit">Log In</SubmitBtn>
+        </StyledForm>
       </Formik>
     </Modal>
   );
