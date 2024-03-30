@@ -4,20 +4,29 @@ export const StatsContainer = styled.div`
   width: 100%;
   border: 1.5px dashed var(--accent-color);
   border-radius: 30px;
-  height: 116px;
   margin-top: 24px;
   margin-bottom: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media screen and (min-width: 524px) {
+    height: 116px;
+  }
 `;
 
 export const StatsList = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 40px 100px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+
+  @media screen and (min-width: 524px){
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px 100px;
+  }
 
   li {
     display: flex;

@@ -2,10 +2,15 @@ import styled from "styled-components";
 
 export const ImagePartContainer = styled.div`
   position: relative;
-  width: 566px;
-  height: 498px;
+  width: 100%;
+  max-width: 720px;
+  height: 400px;
   background-color: var(--accent-light);
   border-radius: 30px;
+
+  @media screen and (min-width: 524px) {
+    height: 498px;
+  }
 
   @media screen and (min-width: 900px) {
     width: 720px;
@@ -24,30 +29,24 @@ export const ImageBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-
-  img {
-    position: absolute;
-    top: 9.5%;
-    left: 20%;
-
-    @media screen and (min-width: 900px) {
-      left: 26%;
-    }
-
-    @media screen and (min-width: 1326px) {
-      left: 20%;
-    }
-  }
 `;
 
 export const IconAppleContainer = styled.div`
   position: relative;
   background: var(--bg-macbook);
-  width: 361px;
-  height: 176px;
+  width: 260px;
+  height: 96px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  bottom: 0;
+  bottom: 1px;
+  margin-top: -60px;
+
+  @media screen and (min-width: 438px) {
+    width: 361px;
+    height: 176px;
+    margin-top: -64px;
+    bottom: 0;
+  }
 
   svg {
     position: absolute;

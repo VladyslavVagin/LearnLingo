@@ -1,6 +1,6 @@
 // @ts-nocheck
-import React, { Suspense, useState } from "react";
-import { Outlet } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Logo from "./Logo/Logo";
 import NavMenu from "./NavMenu/NavMenu";
 import Buttons from "./Buttons/Buttons";
@@ -10,6 +10,11 @@ import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 
 const SharedLayout = () => {
  const [isShowMobile, setIsShowMobile] = useState(false);
+ const location = useLocation();
+
+ useEffect(() => {
+  setIsShowMobile(false);
+ }, [location.pathname])
 
   return (
     <>
