@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
 import { FormTitleContainer, Label, StyledField, StyledForm, SubmitBtn } from "./Login.styled";
@@ -24,7 +26,11 @@ const Login = ({ setShowLogin }) => {
   const handleShowPassword = () => setShowPassword(prev => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
-    console.log(dataForm);
+    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(userCredentials => {
+      console.log(userCredentials);
+    }).catch(error => {
+      console.log(error);
+    });
     resetForm();
   };
 

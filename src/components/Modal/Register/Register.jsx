@@ -1,7 +1,9 @@
 // @ts-nocheck
 import React, { useState } from "react";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { Formik } from "formik";
 import * as yup from "yup";
+import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
 import {
@@ -33,6 +35,11 @@ const Register = ({ setShowRegister }) => {
 
   const handleSubmit = (dataForm, { resetForm }) => {
     console.log(dataForm);
+    createUserWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(userCredentials => {
+      const user = userCredentials.user;
+      updateProfile(user, {displayName: dataForm.name});
+      return user;
+    }).catch(error => console.log(error)); 
     resetForm();
   };
 
