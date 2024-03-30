@@ -8,10 +8,12 @@ import BurgerBtn from "./BurgerBtn/BurgerBtn";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 import Login from "../Modal/Login/Login";
+import Register from "../Modal/Register/Register";
 
 const SharedLayout = () => {
  const [isShowMobile, setIsShowMobile] = useState(false);
  const [showLogin, setShowLogin] = useState(false);
+ const [showRegister, setShowRegister] = useState(false);
  const location = useLocation();
 
  useEffect(() => {
@@ -21,11 +23,12 @@ const SharedLayout = () => {
   return (
     <>
     {showLogin && <Login setShowLogin={setShowLogin}/>}
+    {showRegister && <Register setShowRegister={setShowRegister}/>}
       <header>
         <ContainerHeader>
           <Logo />
           <NavMenu />
-          <Buttons setShowLogin={setShowLogin}/>
+          <Buttons setShowLogin={setShowLogin} setShowRegister={setShowRegister}/>
           <BurgerBtn isShowMobile={isShowMobile} setIsShowMobile={setIsShowMobile}/>
         </ContainerHeader>
         {isShowMobile && <MobileMenu/>}

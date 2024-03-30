@@ -2,10 +2,11 @@ import React from "react";
 import sprite from "../../icons/icons.svg";
 import { Backdrop, CloseBtn, FormModal } from "./Modal.styled";
 
-const Modal = ({ children, setShowLogin }) => {
+const Modal = ({ children, setShowLogin, setShowRegister }) => {
 
     const handleClose = () => {
-        setShowLogin(false);
+       setShowLogin && setShowLogin(false);
+       setShowRegister && setShowRegister(false);
     }
 
   return (

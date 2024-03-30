@@ -3,10 +3,14 @@ import React from 'react'
 import sprite from '../../../icons/icons.svg'
 import { ButtonsContainer, LogoutBtn, RegisterBtn } from './Buttons.styled'
 
-const Buttons = ({setShowLogin}) => {
+const Buttons = ({setShowLogin, setShowRegister}) => {
 
   const handleLoginClick = () => {
     setShowLogin(true);
+  }
+
+  const handleRegistration = () => {
+    setShowRegister(true);
   }
 
   return (
@@ -17,7 +21,7 @@ const Buttons = ({setShowLogin}) => {
           </svg>
           <p>Log in</p>
         </LogoutBtn>
-      <RegisterBtn type='button'>Registration</RegisterBtn>
+      <RegisterBtn type='button' onClick={handleRegistration}>Registration</RegisterBtn>
     </ButtonsContainer>
   )
 }
