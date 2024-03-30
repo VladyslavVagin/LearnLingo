@@ -38,12 +38,43 @@
   --animation-hover: all 400ms ease;
   --dark-color: #121417;
   --white-color: #ffffff;
-  --accent-color: #F4C550;
   --bg-lightblue: #f8f8f8;
-  --accent-light: #fbe9ba;
-  --bg-macbook: linear-gradient(180deg, #eeb055 0%, #d08f38 100%);
-  --icon-stopColor: #E7C885;
   --stat-textColor: rgba(18, 20, 23, 0.7);
+}
+
+[data-theme="theme1"] {
+  --accent-color: #F4C550;
+  --accent-light: #fbe9ba;
+  --icon-stopColor: #E7C885;
+  --bg-macbook: linear-gradient(180deg, #eeb055 0%, #d08f38 100%);
+}
+
+[data-theme="theme2"] {
+  --accent-color: #9FBAAE;
+  --accent-light: #CBDED3;
+  --icon-stopColor: #9EB9AD;
+  --bg-macbook: linear-gradient(180deg, #295761 0%, #183e49 100%);
+}
+
+[data-theme="theme3"] {
+  --accent-color: #9fb7ce;
+  --accent-light: #bfd6ea;
+  --icon-stopColor: #BFD6EA;
+  --bg-macbook: linear-gradient(180deg, #314b6e 0%, #1f385a 100%);
+}
+
+[data-theme="theme4"] {
+  --accent-color: #e0a39a;
+  --accent-light: #f2c0bd;
+  --icon-stopColor: #DFA299;
+  --bg-macbook: linear-gradient(180deg, #b03f3e 0%, #982a27 100%);
+}
+
+[data-theme="theme5"] {
+  --accent-color: #f0aa8d;
+  --accent-light: #f4c8ba;
+  --icon-stopColor: #EFA98C;
+  --bg-macbook: linear-gradient(180deg, #e17650 0%, #ca5b38 100%);
 }
 
 * {

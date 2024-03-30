@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from "react";
 import sprite from "../../../icons/icons.svg";
+import ColorPicker from "../ColorPicker/ColorPicker";
 import {
   BackdropMobile,
   MobileMenuContent,
@@ -25,6 +26,9 @@ const MobileMenu = () => {
             </li>
             <li>
               <StyledLink to={"/favorites"}>Favorites</StyledLink>
+            </li>
+            <li>
+              <ColorPicker/>
             </li>
           </MobileNavList>
           <Buttons>
