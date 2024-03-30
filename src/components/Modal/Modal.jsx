@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useRef} from "react";
 import sprite from "../../icons/icons.svg";
 import { Backdrop, CloseBtn, FormModal } from "./Modal.styled";
 
 const Modal = ({ children, setShowLogin, setShowRegister }) => {
+  const backdropRef = useRef(null);
 
     const handleClose = () => {
        setShowLogin && setShowLogin(false);
@@ -10,7 +11,7 @@ const Modal = ({ children, setShowLogin, setShowRegister }) => {
     }
 
   return (
-    <Backdrop>
+    <Backdrop ref={backdropRef}>
       <FormModal>
         <CloseBtn type="button" onClick={handleClose}>
             <svg width={32} height={32}>
