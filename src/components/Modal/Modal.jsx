@@ -1,0 +1,25 @@
+import React from "react";
+import sprite from "../../icons/icons.svg";
+import { Backdrop, CloseBtn, FormModal } from "./Modal.styled";
+
+const Modal = ({ children, setShowLogin }) => {
+
+    const handleClose = () => {
+        setShowLogin(false);
+    }
+
+  return (
+    <Backdrop>
+      <FormModal>
+        <CloseBtn type="button" onClick={handleClose}>
+            <svg width={32} height={32}>
+             <use xlinkHref={`${sprite}#icon-close`}></use>
+            </svg>
+        </CloseBtn>
+        {children}
+      </FormModal>
+    </Backdrop>
+  );
+};
+
+export default Modal;

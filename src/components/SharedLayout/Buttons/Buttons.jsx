@@ -1,11 +1,17 @@
+// @ts-nocheck
 import React from 'react'
 import sprite from '../../../icons/icons.svg'
 import { ButtonsContainer, LogoutBtn, RegisterBtn } from './Buttons.styled'
 
-const Buttons = () => {
+const Buttons = ({setShowLogin}) => {
+
+  const handleLoginClick = () => {
+    setShowLogin(true);
+  }
+
   return (
     <ButtonsContainer>
-        <LogoutBtn type='button'>
+        <LogoutBtn type='button' onClick={handleLoginClick}>
           <svg width={20} height={20}>
             <use xlinkHref={`${sprite}#icon-log-out`}></use>
           </svg>

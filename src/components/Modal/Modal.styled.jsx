@@ -1,0 +1,40 @@
+import styled from "styled-components";
+
+export const Backdrop = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.425), rgba(0, 0, 0, 0.425));
+    z-index: 101;
+`
+
+export const FormModal = styled.div`
+    background-color: var(--white-color);
+    max-width: 565px;
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 64px;
+    z-index: 102;
+`
+
+export const CloseBtn = styled.button`
+  outline: none;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 103;
+
+  svg {
+    stroke: var(--dark-color);
+  }
+`
