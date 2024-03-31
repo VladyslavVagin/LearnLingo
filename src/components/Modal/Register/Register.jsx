@@ -12,6 +12,7 @@ import {
   StyledField,
   StyledForm,
   SubmitBtn,
+  ErrorContainer
 } from "../Login/Login.styled";
 
 const initialValues = {
@@ -30,16 +31,18 @@ const schema = yup.object().shape({
 
 const Register = ({ setShowRegister }) => {
   const [showPass, setShowPass] = useState(false);
+  const [errorRegister, setErrorRegister] = useState(null);
 
   const handleShowPass = () => setShowPass((prev) => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
     console.log(dataForm);
+    setErrorRegister("");
     createUserWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(userCredentials => {
       const user = userCredentials.user;
       updateProfile(user, {displayName: dataForm.name});
       return user;
-    }).catch(error => console.log(error)); 
+    }).catch(error => setErrorRegister(error.message)); 
     resetForm();
   };
 
@@ -96,6 +99,7 @@ const Register = ({ setShowRegister }) => {
             </div>
           </Label>
           <SubmitBtn type="submit">Sign Up</SubmitBtn>
+          <ErrorContainer>{errorRegister}</ErrorContainer>
         </StyledForm>
       </Formik>
     </Modal>

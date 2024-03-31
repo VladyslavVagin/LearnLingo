@@ -74,3 +74,9 @@ export const SubmitBtn = styled.button`
     background-color: var(--accent-light);
   }
 `;
+
+export const ErrorContainer = styled.span`
+  color: red;
+  font-size: small;
+  margin-top: -14px;
+`

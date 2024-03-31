@@ -2,11 +2,13 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../redux/usersSlice";
 import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
-import { FormTitleContainer, Label, StyledField, StyledForm, SubmitBtn } from "./Login.styled";
+import { FormTitleContainer, Label, StyledField, StyledForm, SubmitBtn, ErrorContainer } from "./Login.styled";
 
 const initialValues = {
   email: "",
@@ -22,17 +24,27 @@ const schema = yup.object().shape({
 
 const Login = ({ setShowLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [errorLogin, setErrorLogin] = useState(null);
+  const dispatch = useDispatch();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch(setUser({id: user.uid, name: user.displayName, email: user.email}));
+    } else {
+      dispatch(setUser(null));
+    }
+  });
 
   const handleShowPassword = () => setShowPassword(prev => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
-    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(userCredentials => {
-      console.log(userCredentials);
-    }).catch(error => {
+    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password).catch(error => {
       console.log(error);
+      setErrorLogin(error.message);
     });
     resetForm();
   };
+
 
   return (
     <Modal setShowLogin={setShowLogin}>
@@ -72,6 +84,7 @@ const Login = ({ setShowLogin }) => {
             </div>
           </Label>
           <SubmitBtn type="submit">Log In</SubmitBtn>
+          <ErrorContainer>{errorLogin}</ErrorContainer>
         </StyledForm>
       </Formik>
     </Modal>
