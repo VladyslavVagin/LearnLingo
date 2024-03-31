@@ -1,8 +1,12 @@
 import React from "react";
+import { useAuth } from "../../../hooks/useAuth";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import { NavMenuList, NavigationLink } from "./NavMenu.styled";
 
 const NavMenu = () => {
+  const { isLoggedIn } = useAuth();
+  console.log(isLoggedIn);
+
   return (
     <div>
       <NavMenuList>
@@ -12,9 +16,11 @@ const NavMenu = () => {
         <li>
           <NavigationLink to={"/teachers"}>Teachers</NavigationLink>
         </li>
-        <li>
-          <NavigationLink to={"/favorites"}>Favorites</NavigationLink>
-        </li>
+        {isLoggedIn && (
+          <li>
+            <NavigationLink to={"/favorites"}>Favorites</NavigationLink>
+          </li>
+        )}
         <li>
           <ColorPicker />
         </li>

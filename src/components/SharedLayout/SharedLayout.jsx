@@ -27,20 +27,12 @@ useEffect(() => {
       console.log(user);
       dispatch(setUser({id: user.uid, name: user.displayName, email: user.email}));
     } else {
-      dispatch(setUser(null));
+      dispatch(unsetUser());
     }
   });
   
 return listen;
 }, [dispatch]);
- onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log(user);
-    dispatch(setUser({id: user.uid, name: user.displayName, email: user.email}));
-  } else {
-    dispatch(unsetUser());
-  }
-});
 
  useEffect(() => {
   setIsShowMobile(false);
