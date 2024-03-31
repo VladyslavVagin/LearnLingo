@@ -41,6 +41,7 @@ const Register = ({ setShowRegister }) => {
     createUserWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(userCredentials => {
       const user = userCredentials.user;
       updateProfile(user, {displayName: dataForm.name});
+      setShowRegister(false);
       return user;
     }).catch(error => setErrorRegister(error.message)); 
     resetForm();

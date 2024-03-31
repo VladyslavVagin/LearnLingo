@@ -27,8 +27,9 @@ const Login = ({ setShowLogin }) => {
   const handleShowPassword = () => setShowPassword(prev => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
-    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password).catch(error => {
-      console.log(error);
+    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(res => {
+      setShowLogin(false);
+    }).catch(error => {
       setErrorLogin(error.message);
     });
     resetForm();
