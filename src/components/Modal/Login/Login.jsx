@@ -2,9 +2,7 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../../redux/usersSlice";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
@@ -25,15 +23,6 @@ const schema = yup.object().shape({
 const Login = ({ setShowLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorLogin, setErrorLogin] = useState(null);
-  const dispatch = useDispatch();
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      dispatch(setUser({id: user.uid, name: user.displayName, email: user.email}));
-    } else {
-      dispatch(setUser(null));
-    }
-  });
 
   const handleShowPassword = () => setShowPassword(prev => !prev);
 

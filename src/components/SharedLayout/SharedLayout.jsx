@@ -1,6 +1,10 @@
 // @ts-nocheck
 import React, { Suspense, useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import {setUser, unsetUser} from "../../redux/usersSlice.js"
+import { useDispatch } from 'react-redux'
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase/firebase.js"
 import Logo from "./Logo/Logo";
 import NavMenu from "./NavMenu/NavMenu";
 import Buttons from "./Buttons/Buttons";
@@ -15,6 +19,28 @@ const SharedLayout = () => {
  const [showLogin, setShowLogin] = useState(false);
  const [showRegister, setShowRegister] = useState(false);
  const location = useLocation();
+ const dispatch = useDispatch();
+
+useEffect(() => {
+  const listen = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log(user);
+      dispatch(setUser({id: user.uid, name: user.displayName, email: user.email}));
+    } else {
+      dispatch(setUser(null));
+    }
+  });
+  
+return listen;
+}, [dispatch]);
+ onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log(user);
+    dispatch(setUser({id: user.uid, name: user.displayName, email: user.email}));
+  } else {
+    dispatch(unsetUser());
+  }
+});
 
  useEffect(() => {
   setIsShowMobile(false);
