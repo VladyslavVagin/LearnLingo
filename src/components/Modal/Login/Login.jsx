@@ -3,10 +3,18 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../../../hooks/useAuth";
 import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
-import { FormTitleContainer, Label, StyledField, StyledForm, SubmitBtn, ErrorContainer } from "./Login.styled";
+import {
+  FormTitleContainer,
+  Label,
+  StyledField,
+  StyledForm,
+  SubmitBtn,
+  ErrorContainer,
+} from "./Login.styled";
 
 const initialValues = {
   email: "",
@@ -23,18 +31,27 @@ const schema = yup.object().shape({
 const Login = ({ setShowLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorLogin, setErrorLogin] = useState(null);
+  const { isLoggedIn } = useAuth();
 
-  const handleShowPassword = () => setShowPassword(prev => !prev);
+  const handleShowPassword = () => setShowPassword((prev) => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
-    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(res => {
-      setShowLogin(false);
-    }).catch(error => {
-      setErrorLogin(error.message);
-    });
+    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password)
+      .then((res) => {
+        if (res.user.emailVerified) {
+          setShowLogin(false);
+          if (!isLoggedIn) {
+            window?.location?.reload();
+          }
+        } else {
+          alert("Please, verify Your email!");
+        }
+      })
+      .catch((error) => {
+        setErrorLogin(error.message);
+      });
     resetForm();
   };
-
 
   return (
     <Modal setShowLogin={setShowLogin}>
@@ -69,7 +86,13 @@ const Login = ({ setShowLogin }) => {
             />
             <div onClick={handleShowPassword}>
               <svg width={20} height={20}>
-                <use xlinkHref={showPassword ? `${sprite}#icon-eye` : `${sprite}#icon-eye-off`}></use>
+                <use
+                  xlinkHref={
+                    showPassword
+                      ? `${sprite}#icon-eye`
+                      : `${sprite}#icon-eye-off`
+                  }
+                ></use>
               </svg>
             </div>
           </Label>

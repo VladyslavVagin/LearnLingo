@@ -5,7 +5,6 @@ import { NavMenuList, NavigationLink } from "./NavMenu.styled";
 
 const NavMenu = () => {
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
 
   return (
     <div>

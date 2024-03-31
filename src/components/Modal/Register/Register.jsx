@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, reload } from "firebase/auth";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { auth } from "../../../firebase/firebase";
@@ -36,11 +36,11 @@ const Register = ({ setShowRegister }) => {
   const handleShowPass = () => setShowPass((prev) => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
-    console.log(dataForm);
     setErrorRegister("");
     createUserWithEmailAndPassword(auth, dataForm.email, dataForm.password).then(userCredentials => {
       const user = userCredentials.user;
       updateProfile(user, {displayName: dataForm.name});
+      sendEmailVerification(auth.currentUser).then(reload(user));
       setShowRegister(false);
       return user;
     }).catch(error => setErrorRegister(error.message)); 
