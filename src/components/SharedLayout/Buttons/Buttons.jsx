@@ -16,6 +16,11 @@ const Buttons = ({ setShowLogin, setShowRegister }) => {
     setShowRegister(true);
   };
 
+  const handlerRegistrationLogin = () => {
+    alert('Please Log Out first for registration');
+  }
+
+
   const handleLogOut = () => {
     auth.signOut();
   }
@@ -28,7 +33,7 @@ const Buttons = ({ setShowLogin, setShowRegister }) => {
         </svg>
         <p>{isLoggedIn ? 'Log out' : 'Log in'}</p>
       </LogoutBtn>
-      <RegisterBtn type="button" onClick={handleRegistration} disabled={isLoggedIn ? true : false}>
+      <RegisterBtn type="button" onClick={isLoggedIn ? handlerRegistrationLogin : handleRegistration}>
         Registration
       </RegisterBtn>
     </ButtonsContainer>
