@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "../../../hooks/useAuth";
 import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
@@ -15,6 +14,8 @@ import {
   SubmitBtn,
   ErrorContainer,
 } from "./Login.styled";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../../redux/usersSlice";
 
 const initialValues = {
   email: "",
@@ -31,7 +32,7 @@ const schema = yup.object().shape({
 const Login = ({ setShowLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorLogin, setErrorLogin] = useState(null);
-  const { isLoggedIn } = useAuth();
+  const dispatch = useDispatch();
 
   const handleShowPassword = () => setShowPassword((prev) => !prev);
 
@@ -40,9 +41,7 @@ const Login = ({ setShowLogin }) => {
       .then((res) => {
         if (res.user.emailVerified) {
           setShowLogin(false);
-          if (!isLoggedIn) {
-            window?.location?.reload();
-          }
+           dispatch(setUser({ name: res.user.displayName, email: res.user.email }))
         } else {
           alert("Please, verify Your email!");
         }

@@ -28,7 +28,7 @@ const Buttons = ({ setShowLogin, setShowRegister }) => {
         </svg>
         <p>{isLoggedIn ? 'Log out' : 'Log in'}</p>
       </LogoutBtn>
-      <RegisterBtn type="button" onClick={handleRegistration}>
+      <RegisterBtn type="button" onClick={handleRegistration} disabled={isLoggedIn ? true : false}>
         Registration
       </RegisterBtn>
     </ButtonsContainer>
