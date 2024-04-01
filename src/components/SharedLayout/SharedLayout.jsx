@@ -1,18 +1,19 @@
 // @ts-nocheck
 import React, { Suspense, useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 import { Outlet, useLocation } from "react-router-dom";
-import { setUser, unsetUser } from "../../redux/usersSlice.js";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
+import { setUser, unsetUser } from "../../redux/usersSlice.js";
 import { auth } from "../../firebase/firebase.js";
 import Logo from "./Logo/Logo";
 import NavMenu from "./NavMenu/NavMenu";
 import Buttons from "./Buttons/Buttons";
 import BurgerBtn from "./BurgerBtn/BurgerBtn";
 import MobileMenu from "./MobileMenu/MobileMenu";
-import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 import Login from "../Modal/Login/Login";
 import Register from "../Modal/Register/Register";
+import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 
 const SharedLayout = () => {
   const [isShowMobile, setIsShowMobile] = useState(false);
@@ -88,6 +89,7 @@ const SharedLayout = () => {
           <Outlet />
         </Suspense>
       </MainSection>
+      <ToastContainer/>
     </>
   );
 };

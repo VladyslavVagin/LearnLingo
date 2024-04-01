@@ -1,4 +1,4 @@
-import { Form, Field } from "formik";
+import { Form, Field, ErrorMessage } from "formik";
 import styled from "styled-components";
 
 export const FormTitleContainer = styled.div`
@@ -79,4 +79,9 @@ export const ErrorContainer = styled.span`
   color: red;
   font-size: small;
   margin-top: -14px;
+`
+export const StyledError = styled(ErrorMessage)`
+  font-size: 12px;
+  font-weight: 400;
+  color: red;
 `

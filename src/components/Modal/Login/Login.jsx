@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState } from "react";
+import {toast} from "react-toastify"
 import { Formik } from "formik";
 import * as yup from "yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -13,6 +14,7 @@ import {
   StyledForm,
   SubmitBtn,
   ErrorContainer,
+  StyledError
 } from "./Login.styled";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../redux/usersSlice";
@@ -42,12 +44,14 @@ const Login = ({ setShowLogin }) => {
         if (res.user.emailVerified) {
           setShowLogin(false);
            dispatch(setUser({ name: res.user.displayName, email: res.user.email }))
+           toast.success(`Welcome ${res.user.displayName} to LearnLingo`);
         } else {
-          alert("Please, verify Your email!");
+          toast.warn("Please, verify Your email!");
         }
       })
-      .catch((error) => {
-        setErrorLogin(error.message);
+      .catch(() => {
+        setErrorLogin("Invalid credentials");
+        toast.error("Invalid credentials");
       });
     resetForm();
   };
@@ -75,6 +79,7 @@ const Login = ({ setShowLogin }) => {
             required
             aria-label="Input for type your email"
           />
+           <StyledError name="email" component="div" />
           <Label htmlFor="password">
             <StyledField
               type={showPassword ? "text" : "password"}
@@ -95,6 +100,7 @@ const Login = ({ setShowLogin }) => {
               </svg>
             </div>
           </Label>
+          <StyledError name="password" component="div" />
           <SubmitBtn type="submit">Log In</SubmitBtn>
           <ErrorContainer>{errorLogin}</ErrorContainer>
         </StyledForm>

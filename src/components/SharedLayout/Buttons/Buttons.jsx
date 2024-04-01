@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from "react";
+import { toast } from "react-toastify"
 import { auth } from "../../../firebase/firebase";
 import { useAuth } from "../../../hooks/useAuth";
 import sprite from "../../../icons/icons.svg";
@@ -17,7 +18,7 @@ const Buttons = ({ setShowLogin, setShowRegister }) => {
   };
 
   const handlerRegistrationLogin = () => {
-    alert('Please Log Out first for registration');
+    toast.warn('Please Log Out first for registration');
   }
 
 
