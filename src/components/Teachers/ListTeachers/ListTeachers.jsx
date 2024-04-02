@@ -1,13 +1,26 @@
-import React from 'react'
-import { getDatabase } from "firebase/database";
+import React, { useEffect, useState } from 'react'
+import { get, ref } from "firebase/database";
+import { database } from '../../../firebase/firebase';
 
 const ListTeachers = () => {
-    const db = getDatabase();
-    console.log(db)
+    const [teachersData, setTeachersData] = useState([]);
+
+    const fetchData = async () => {
+       const dbRef = ref(database, "teachers");
+       const snapshot = await get(dbRef);
+       if(snapshot.exists()) {
+        setTeachersData(snapshot.val());
+       }
+    }
    
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  console.log(teachersData);
 
   return (
-    <div>ListTeachers</div>
+    <div>List of Teachers</div>
   )
 }
 
