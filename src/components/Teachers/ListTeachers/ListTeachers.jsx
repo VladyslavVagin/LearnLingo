@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify';
-import { get, ref } from "firebase/database";
-import { database } from '../../../firebase/firebase';
+// @ts-nocheck
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchAllTeachers } from '../../../redux/operations';
+import { useTeachers } from '../../../hooks/useTeachers';
+
 
 const ListTeachers = () => {
-    const [teachersData, setTeachersData] = useState([]);
+  const dispatch = useDispatch();
+  const { teachers } = useTeachers();
 
-    const fetchData = async () => {
-       const dbRef = ref(database, "teachers");
-       const snapshot = await get(dbRef);
-       if(snapshot.exists()) {
-        setTeachersData(snapshot.val());
-       } else {
-        toast.error('Database ERROR');
-       }
-    }
-   
+  console.log(teachers);
+
   useEffect(() => {
-    fetchData();
-  }, [])
+    dispatch(fetchAllTeachers());
+  }, [dispatch])
 
-  console.log(teachersData);
 
   return (
     <div>List of Teachers</div>
