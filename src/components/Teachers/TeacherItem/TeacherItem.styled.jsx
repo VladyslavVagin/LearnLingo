@@ -5,6 +5,7 @@ export const GeneralItem = styled.li`
   padding: 24px;
   background-color: var(--white-color);
   border-radius: 24px;
+  position: relative;
 `;
 
 export const ImageContainer = styled.div`
@@ -112,4 +113,39 @@ export const ListInfo = styled.ul`
 export const Langs = styled.span`
   text-decoration: underline;
   text-decoration-skip-ink: none;
+`;
+
+export const ReadMoreBtn = styled.p`
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--dark-color);
+  margin-top: 16px;
+`;
+
+export const BtnAddFavorite = styled.button`
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+
+  svg {
+    fill: white;
+    stroke: var(--dark-color);
+    transition: var(--animation-hover);
+  }
+
+  &:hover svg,
+  &:focus svg {
+    stroke: var(--accent-color);
+  }
 `;

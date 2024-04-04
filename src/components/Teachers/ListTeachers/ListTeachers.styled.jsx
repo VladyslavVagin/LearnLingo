@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const List = styled.ul`
-  width: 100%;
+  width: 1184px;
   background-color: var(--bg-lightblue);
   display: flex;
   flex-direction: column;
   row-gap: 32px;
+  margin: 0 auto 20px auto;
 `;
 
 export const ShowMoreBtn = styled.button`

@@ -2,6 +2,7 @@
 import React from "react";
 import sprite from "../../../icons/icons.svg";
 import {
+  BtnAddFavorite,
   GeneralItem,
   ImageContainer,
   Langs,
@@ -9,9 +10,11 @@ import {
   ListInfo,
   ListItemContainer,
   Price,
+  ReadMoreBtn,
   TitleCardContainer,
   UpperContent,
 } from "./TeacherItem.styled";
+import Levels from "../Levels/Levels";
 
 const TeacherItem = ({ teach }) => {
   const {
@@ -88,9 +91,16 @@ const TeacherItem = ({ teach }) => {
               </li>
               <li><p>Conditions: <span>{conditions}</span></p></li>
             </ListInfo>
+            <ReadMoreBtn type="button">Read more</ReadMoreBtn>
+            <Levels levels={levels}/>
           </div>
         </div>
       </ListItemContainer>
+      <BtnAddFavorite type="button">
+        <svg width={26} height={26}>
+          <use xlinkHref={`${sprite}#icon-heart`}></use>
+        </svg>
+      </BtnAddFavorite>
     </GeneralItem>
   );
 };
