@@ -22,8 +22,7 @@ export const ShowMoreBtn = styled.button`
   margin: 0 auto;
   transition: var(--animation-hover);
 
-  &:hover,
-  &:focus {
+  &:hover {
     background-color: var(--accent-light);
   }
 `;
