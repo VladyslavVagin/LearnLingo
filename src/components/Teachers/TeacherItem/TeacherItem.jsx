@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from "react";
+import React, { useState } from "react";
 import sprite from "../../../icons/icons.svg";
 import {
   BtnAddFavorite,
@@ -15,8 +15,10 @@ import {
   UpperContent,
 } from "./TeacherItem.styled";
 import Levels from "../Levels/Levels";
+import ReadMoreInfo from "../ReadMoreInfo/ReadMoreInfo";
 
 const TeacherItem = ({ teach }) => {
+  const [showInfo, setShowInfo] = useState(false);
   const {
     avatar_url,
     conditions,
@@ -87,12 +89,28 @@ const TeacherItem = ({ teach }) => {
                 </p>
               </li>
               <li>
-                <p>Lesson Info: <span>{lesson_info}</span></p>
+                <p>
+                  Lesson Info: <span>{lesson_info}</span>
+                </p>
               </li>
-              <li><p>Conditions: <span>{conditions}</span></p></li>
+              <li>
+                <p>
+                  Conditions: <span>{conditions}</span>
+                </p>
+              </li>
             </ListInfo>
-            <ReadMoreBtn type="button">Read more</ReadMoreBtn>
-            <Levels levels={levels}/>
+            {showInfo ? (
+              <ReadMoreInfo
+                experience={experience}
+                reviews={reviews}
+                setShowInfo={setShowInfo}
+              />
+            ) : (
+              <ReadMoreBtn onClick={() => setShowInfo(true)}>
+                Read more
+              </ReadMoreBtn>
+            )}
+            <Levels levels={levels} />
           </div>
         </div>
       </ListItemContainer>

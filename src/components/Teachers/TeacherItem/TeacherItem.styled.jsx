@@ -56,7 +56,7 @@ export const TitleCardContainer = styled.div`
 `;
 
 export const UpperContent = styled.div`
-  width: 100%;
+  width: 800px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
