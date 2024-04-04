@@ -41,6 +41,7 @@
   --bg-lightblue: #f8f8f8;
   --stat-textColor: rgba(18, 20, 23, 0.7);
   --form-text: rgba(18, 20, 23, 0.8);
+  --gray-card: #8a8a89;
 }
 
 [data-theme="theme1"] {

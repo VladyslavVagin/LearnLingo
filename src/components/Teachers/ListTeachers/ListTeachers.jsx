@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { fetchAllTeachers } from "../../../redux/operations";
 import { useTeachers } from "../../../hooks/useTeachers";
 import TeacherItem from "../TeacherItem/TeacherItem";
+import { List } from "./ListTeachers.styled";
 
 const ListTeachers = () => {
   const dispatch = useDispatch();
@@ -25,17 +26,17 @@ const ListTeachers = () => {
   }, [currentPage, teachers]);
 
   return (
-    <div>
-      <ul>
+    <>
+      <List>
       {shownTeachers.map((teach, index) => <TeacherItem key={index} teach={teach}/>)}
-      </ul>
+      </List>
       <button
         type="button"
         onClick={handleShowMore}
       >
         Show more
       </button>
-    </div>
+    </>
   );
 };
 
