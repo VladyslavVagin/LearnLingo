@@ -5,12 +5,13 @@ export const GeneralItem = styled.li`
   padding: 24px;
   background-color: var(--white-color);
   border-radius: 24px;
-`
+`;
 
 export const ImageContainer = styled.div`
-  border: 3px solid #fbe9ba;
+  border: 3px solid var(--accent-color);
   border-radius: 100px;
   width: 120px;
+  min-width: 120px;
   height: 120px;
   background-color: transparent;
   display: flex;
@@ -35,7 +36,7 @@ export const ListItemContainer = styled.div`
   display: flex;
   align-items: flex-start;
   column-gap: 48px;
-`
+`;
 export const TitleCardContainer = styled.div`
   h2 {
     font-size: 16px;
@@ -51,20 +52,64 @@ export const TitleCardContainer = styled.div`
     line-height: 1;
     color: var(--dark-color);
   }
-`
+`;
+
+export const UpperContent = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 32px;
+`;
 
 export const ListData = styled.ul`
   display: flex;
   align-items: center;
+  column-gap: 16px;
+
+  li:not(:last-of-type) {
+    border-right: 1px solid rgba(18, 20, 23, 0.2);
+    padding-right: 16px;
+  }
 
   li {
     display: flex;
     align-items: center;
     column-gap: 8px;
+    font-weight: 500;
+    font-size: 16px;
 
     svg {
       fill: white;
       stroke: black;
     }
   }
-`
+`;
+
+export const Price = styled.span`
+  color: var(--price-color);
+`;
+
+export const ListInfo = styled.ul`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  li {
+    p {
+      color: var(--gray-card);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+
+      span {
+        color: var(--dark-color);
+      }
+    }
+  }
+`;
+
+export const Langs = styled.span`
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+`;

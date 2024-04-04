@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { fetchAllTeachers } from "../../../redux/operations";
 import { useTeachers } from "../../../hooks/useTeachers";
 import TeacherItem from "../TeacherItem/TeacherItem";
-import { List } from "./ListTeachers.styled";
+import { List, ShowMoreBtn } from "./ListTeachers.styled";
 
 const ListTeachers = () => {
   const dispatch = useDispatch();
@@ -30,12 +30,12 @@ const ListTeachers = () => {
       <List>
       {shownTeachers.map((teach, index) => <TeacherItem key={index} teach={teach}/>)}
       </List>
-      <button
+      <ShowMoreBtn
         type="button"
         onClick={handleShowMore}
       >
         Show more
-      </button>
+      </ShowMoreBtn>
     </>
   );
 };
