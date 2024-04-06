@@ -4,11 +4,9 @@ import { useDispatch } from "react-redux";
 import { fetchAllTeachers } from "../../../redux/operations";
 import { useTeachers } from "../../../hooks/useTeachers";
 import TeacherItem from "../TeacherItem/TeacherItem";
-import BookLesson from "../BookLesson/BookLesson";
 import { List, ShowMoreBtn } from "./ListTeachers.styled";
 
 const ListTeachers = () => {
-  const [showBookModal, setShowBookModal] = useState(false);
   const dispatch = useDispatch();
   const { teachers } = useTeachers();
   const teachersPerPage = 4;
@@ -29,15 +27,9 @@ const ListTeachers = () => {
 
   return (
     <>
-     {showBookModal && <BookLesson setShowBookModal={setShowBookModal}/>}
       <List>
         {shownTeachers.map((teach, index) => (
-          <TeacherItem
-            key={index}
-            teach={teach}
-            showBookModal={showBookModal}
-            setShowBookModal={setShowBookModal}
-          />
+          <TeacherItem key={index} teach={teach}/>
         ))}
       </List>
       <ShowMoreBtn type="button" onClick={handleShowMore}>

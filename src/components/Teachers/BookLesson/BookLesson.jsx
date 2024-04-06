@@ -1,13 +1,29 @@
 // @ts-nocheck
-import React from 'react'
-import ModalBookLesson from '../ModalBookLesson/ModalBookLesson'
+import React, { useEffect } from "react";
+import ModalBookLesson from "../ModalBookLesson/ModalBookLesson";
+import BookForm from "../BookForm/BookForm";
 
-const BookLesson = ({setShowBookModal}) => {
+const BookLesson = ({ setShowBookModal, name, surname, avatar_url }) => {
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === "Escape") {
+        setShowBookModal(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [setShowBookModal]);
+
   return (
-     <ModalBookLesson setShowBookModal={setShowBookModal}>
-        Form
-     </ModalBookLesson>
-  )
-}
+    <>
+      <ModalBookLesson setShowBookModal={setShowBookModal}>
+        <BookForm name={name} surname={surname} avatar_url={avatar_url}/>
+      </ModalBookLesson>
+    </>
+  );
+};
 
-export default BookLesson
+export default BookLesson;
