@@ -16,6 +16,7 @@ import {
 } from "./TeacherItem.styled";
 import Levels from "../Levels/Levels";
 import ReadMoreInfo from "../ReadMoreInfo/ReadMoreInfo";
+import BookLessonBtn from "../ReadMoreInfo/BookLessonBtn/BookLessonBtn";
 
 const TeacherItem = ({ teach }) => {
   const [showInfo, setShowInfo] = useState(false);
@@ -111,6 +112,7 @@ const TeacherItem = ({ teach }) => {
               </ReadMoreBtn>
             )}
             <Levels levels={levels} />
+            {showInfo && <BookLessonBtn/>}
           </div>
         </div>
       </ListItemContainer>
