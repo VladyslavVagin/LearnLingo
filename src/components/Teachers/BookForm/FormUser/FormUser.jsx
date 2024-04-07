@@ -1,7 +1,8 @@
 // @ts-nocheck
 import React from "react";
-import { Formik, Form, Field } from "formik";
-import { WhatReason, FieldsGroup } from "./FormUser.styled";
+import { Formik, Form } from "formik";
+import * as yup from "yup";
+import { WhatReason, FieldsGroup, RadioBtn } from "./FormUser.styled";
 
 const valuesField = [
   {
@@ -32,9 +33,12 @@ const valuesField = [
 ];
 
 const FormUser = () => {
+  const initialValues = {
+    reason: ''
+  };
   return (
     <>
-      <Formik>
+      <Formik initialValues={initialValues} onSubmit={(values) => console.log(values)}>
         <Form>
           <WhatReason>
             What is your main reason for learning English?
@@ -42,8 +46,8 @@ const FormUser = () => {
           <FieldsGroup>
             {valuesField.map((vl) => {
               return (
-                <label key={vl.id}>
-                  <Field type="radio" name="reason" value={vl.forValue} />
+                <label key={vl.id} htmlFor="reason">
+                  <RadioBtn type="radio" name="reason" value={vl.forValue} />
                   {vl.forLabel}
                 </label>
               );
