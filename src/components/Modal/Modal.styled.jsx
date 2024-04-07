@@ -20,6 +20,8 @@ export const FormModal = styled.div`
   transform: translate(-50%, -50%);
   padding: 64px;
   z-index: 102;
+  height: 100%;
+  overflow-y: scroll;
 `;
 
 export const CloseBtn = styled.button`

@@ -16,6 +16,12 @@ export const FieldsGroup = styled.div`
   row-gap: 17px;
 `;
 
+export const Label = styled.label`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+`;
+
 export const RadioBtn = styled(Field)`
   -webkit-appearance: none;
   appearance: none;
@@ -33,24 +39,43 @@ export const RadioBtn = styled(Field)`
   outline: none;
   position: relative;
 
-  ::before {
+  &::before {
     content: "";
-    position: absolute;
-    z-index: 5;
     width: 0.65em;
     height: 0.65em;
     border-radius: 50%;
     transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em var(--form-control-color);
     background-color: var(--accent-color);
   }
 
-  &:checked ::before {
-         transform: scale(1);
+  &:checked::before {
+    transform: scale(1);
   }
 
-  &:focus {
+  &:focus,
+  &:checked {
     border: 0.15em solid var(--accent-color);
+  }
+`;
+
+export const GroupInputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+  margin: 40px 0;
+`;
+
+export const InputUser = styled(Field)`
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  height: 54px;
+  width: 100%;
+  padding: 16px 18px;
+
+  &::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.375;
+    color: var(--dark-color);
   }
 `;
