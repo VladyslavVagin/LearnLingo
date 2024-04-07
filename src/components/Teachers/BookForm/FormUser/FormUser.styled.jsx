@@ -79,3 +79,19 @@ export const InputUser = styled(Field)`
     color: var(--dark-color);
   }
 `;
+
+export const BookSubmitBtn = styled.button`
+  outline: none;
+  border: none;
+  width: 100%;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.55556;
+  color: var(--dark-color);
+`

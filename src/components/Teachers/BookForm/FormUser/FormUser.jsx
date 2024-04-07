@@ -2,7 +2,16 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import * as yup from "yup";
-import { WhatReason, FieldsGroup, RadioBtn, Label, GroupInputs, InputUser } from "./FormUser.styled";
+import {
+  WhatReason,
+  FieldsGroup,
+  RadioBtn,
+  Label,
+  GroupInputs,
+  InputUser,
+  BookSubmitBtn,
+} from "./FormUser.styled";
+import { StyledError } from "../../../Modal/Login/Login.styled";
 
 const valuesField = [
   {
@@ -35,11 +44,25 @@ const valuesField = [
 const FormUser = () => {
   const initialValues = {
     reason: "",
+    name: "",
+    email: "",
+    phone: "",
   };
+
+  const patternEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+  const schema = yup.object().shape({
+    reason: yup.string().required(),
+    name: yup.string().min(5).max(24).required(),
+    email: yup.string().email().required(),
+    phone: yup.string().min(9).max(12).required(),
+  });
+
   return (
     <>
       <Formik
         initialValues={initialValues}
+        validationSchema={schema}
         onSubmit={(values) => console.log(values)}
       >
         <Form>
@@ -55,6 +78,7 @@ const FormUser = () => {
                 </Label>
               );
             })}
+            <StyledError name="reason" component="div" />
           </FieldsGroup>
           <GroupInputs>
             <InputUser
@@ -64,13 +88,16 @@ const FormUser = () => {
               required
               aria-label="Input for typing Full Name"
             />
+            <StyledError name="name" component="div" />
             <InputUser
               type="email"
               name="email"
               placeholder="Email"
+              pattern={patternEmail}
               required
               aria-label="Input for typing Email"
             />
+            <StyledError name="email" component="div" />
             <InputUser
               type="tel"
               name="phone"
@@ -78,7 +105,11 @@ const FormUser = () => {
               required
               aria-label="Input for typing phone number"
             />
+            <StyledError name="phone" component="div" />
           </GroupInputs>
+          <BookSubmitBtn type="submit" aria-label="Send Book Lesson form">
+            Book
+          </BookSubmitBtn>
         </Form>
       </Formik>
     </>
