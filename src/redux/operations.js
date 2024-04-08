@@ -20,3 +20,22 @@ export const fetchAllTeachers = createAsyncThunk(
     }
   }
 );
+
+// ============================== ADD TEACHER TO FAVORITE
+export const addToFavorite = createAsyncThunk(
+  "teachers/addFavorite",
+  async (id, thunkAPI) => {
+    try {
+      const dbRef = ref(database, "teachers");
+      const snapshot = await get(dbRef);
+      if (snapshot.exists()) {
+        let allTeachers = snapshot.val();
+        let choosenTeacher = allTeachers.find((teacher) => teacher.id === id);
+        return choosenTeacher;
+      }
+    } catch (e) {
+      toast.error("Database ERROR");
+      return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);

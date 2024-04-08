@@ -8,10 +8,12 @@ import { List, ShowMoreBtn } from "./ListTeachers.styled";
 
 const ListTeachers = () => {
   const dispatch = useDispatch();
-  const { teachers } = useTeachers();
+  const { teachers, favorites } = useTeachers();
   const teachersPerPage = 4;
   const [shownTeachers, setShownTeachers] = useState(teachers.slice(0, 4));
   const [currentPage, setCurrentPage] = useState(1);
+
+  console.log(favorites);
 
   const handleShowMore = () => {
     setCurrentPage((prev) => (prev += 1));

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import SharedLayout from './SharedLayout/SharedLayout'
 import HomePage from '../pages/HomePage/HomePage'
 import Teachers from '../pages/Teachers/Teachers'
@@ -7,6 +7,12 @@ import Favorites from '../pages/Favorites/Favorites'
 import { PrivateRoute } from './PrivateRoute'
 
 const App = () => {
+  const location = useLocation();
+
+  if (location.pathname === "/") {
+    location.pathname = "/home";
+  }
+  
   return (
     <>
     <Routes>
