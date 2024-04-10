@@ -1,14 +1,10 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
 import sprite from "../../../icons/icons.svg";
 import Levels from "../Levels/Levels";
 import ReadMoreInfo from "../ReadMoreInfo/ReadMoreInfo";
 import BookLessonBtn from "../ReadMoreInfo/BookLessonBtn/BookLessonBtn";
 import BookLesson from "../BookLesson/BookLesson";
-import { useAuth } from "../../../hooks/useAuth";
-import { addToFavorite } from "../../../redux/operations";
 import {
   BtnAddFavorite,
   GeneralItem,
@@ -26,8 +22,6 @@ import {
 const TeacherItem = ({ teach }) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showBookModal, setShowBookModal] = useState(false);
-  const { isLoggedIn } = useAuth();
-  const dispatch = useDispatch();
   const {
     id,
     avatar_url,
@@ -43,15 +37,6 @@ const TeacherItem = ({ teach }) => {
     reviews,
     surname,
   } = teach;
-
-  const handleAddFavorite = (e) => {
-    if (!isLoggedIn) {
-      toast.warning("Please, LOG IN first!");
-      return;
-    } else {
-      dispatch(addToFavorite(+e.currentTarget.id));
-    }
-  };
 
   useEffect(() => {
     if (showBookModal) {
@@ -145,7 +130,7 @@ const TeacherItem = ({ teach }) => {
           </div>
         </div>
       </ListItemContainer>
-      <BtnAddFavorite type="button" id={id} onClick={handleAddFavorite}>
+      <BtnAddFavorite type="button" id={id}>
         <svg width={26} height={26}>
           <use xlinkHref={`${sprite}#icon-heart`}></use>
         </svg>
