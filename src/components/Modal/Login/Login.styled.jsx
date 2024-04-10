@@ -75,11 +75,6 @@ export const SubmitBtn = styled.button`
   }
 `;
 
-export const ErrorContainer = styled.span`
-  color: red;
-  font-size: small;
-  margin-top: -14px;
-`
 export const StyledError = styled(ErrorMessage)`
   font-size: 12px;
   font-weight: 400;

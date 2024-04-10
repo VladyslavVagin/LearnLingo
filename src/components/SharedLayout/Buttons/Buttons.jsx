@@ -1,13 +1,12 @@
 // @ts-nocheck
 import React from "react";
-import { toast } from "react-toastify"
-import { auth } from "../../../firebase/firebase";
-import { useAuth } from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 import sprite from "../../../icons/icons.svg";
 import { ButtonsContainer, LogoutBtn, RegisterBtn } from "./Buttons.styled";
+import { getUserData } from "../../../firebase/api";
 
-const Buttons = ({ setShowLogin, setShowRegister }) => {
-  const { isLoggedIn } = useAuth();
+const Buttons = ({ setIsLogin, setShowLogin, setShowRegister, whenLogOut }) => {
+  const user = getUserData();
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -21,20 +20,15 @@ const Buttons = ({ setShowLogin, setShowRegister }) => {
     toast.warn('Please Log Out first for registration');
   }
 
-
-  const handleLogOut = () => {
-    auth.signOut();
-  }
-
   return (
     <ButtonsContainer>
-      <LogoutBtn type="button" onClick={isLoggedIn ? handleLogOut : handleLoginClick}>
+      <LogoutBtn type="button" onClick={!user ? handleLoginClick : () => whenLogOut(setIsLogin)}>
         <svg width={20} height={20}>
           <use xlinkHref={`${sprite}#icon-log-out`}></use>
         </svg>
-        <p>{isLoggedIn ? 'Log out' : 'Log in'}</p>
+        <p>{!user ? 'Log in' : 'Log out'}</p>
       </LogoutBtn>
-      <RegisterBtn type="button" onClick={isLoggedIn ? handlerRegistrationLogin : handleRegistration}>
+      <RegisterBtn type="button" onClick={!user ? handleRegistration : handlerRegistrationLogin}>
         Registration
       </RegisterBtn>
     </ButtonsContainer>

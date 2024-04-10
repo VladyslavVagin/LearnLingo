@@ -1,10 +1,7 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import {toast} from "react-toastify"
 import { Formik } from "formik";
 import * as yup from "yup";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
 import {
@@ -13,11 +10,9 @@ import {
   StyledField,
   StyledForm,
   SubmitBtn,
-  ErrorContainer,
   StyledError
 } from "./Login.styled";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../../redux/usersSlice";
+import { whenUserLogin } from "../../../firebase/api";
 
 const initialValues = {
   email: "",
@@ -33,26 +28,11 @@ const schema = yup.object().shape({
 
 const Login = ({ setShowLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [errorLogin, setErrorLogin] = useState(null);
-  const dispatch = useDispatch();
 
   const handleShowPassword = () => setShowPassword((prev) => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
-    signInWithEmailAndPassword(auth, dataForm.email, dataForm.password)
-      .then((res) => {
-        if (res.user.emailVerified) {
-          setShowLogin(false);
-           dispatch(setUser({ name: res.user.displayName, email: res.user.email }))
-           toast.success(`Welcome ${res.user.displayName} to LearnLingo`);
-        } else {
-          toast.warn("Please, verify Your email!");
-        }
-      })
-      .catch(() => {
-        setErrorLogin("Invalid credentials");
-        toast.error("Invalid credentials");
-      });
+    whenUserLogin(dataForm, setShowLogin);
     resetForm();
   };
 
@@ -102,7 +82,6 @@ const Login = ({ setShowLogin }) => {
           </Label>
           <StyledError name="password" component="div" />
           <SubmitBtn type="submit">Log In</SubmitBtn>
-          <ErrorContainer>{errorLogin}</ErrorContainer>
         </StyledForm>
       </Formik>
     </Modal>

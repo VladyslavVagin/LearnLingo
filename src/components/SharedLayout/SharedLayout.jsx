@@ -2,10 +2,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { Outlet, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
-import { setUser, unsetUser } from "../../redux/usersSlice.js";
-import { auth } from "../../firebase/firebase.js";
 import Logo from "./Logo/Logo";
 import NavMenu from "./NavMenu/NavMenu";
 import Buttons from "./Buttons/Buttons";
@@ -13,28 +9,24 @@ import BurgerBtn from "./BurgerBtn/BurgerBtn";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import Login from "../Modal/Login/Login";
 import Register from "../Modal/Register/Register";
+import { getUserData, whenLogOut } from "../../firebase/api";
 import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 
 const SharedLayout = () => {
   const [isShowMobile, setIsShowMobile] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const location = useLocation();
-  const dispatch = useDispatch();
-
-
+  const user = getUserData();
 
   useEffect(() => {
-    const listen = onAuthStateChanged(auth, (user) => {
-      if (user?.emailVerified) {
-        dispatch(setUser({ name: user.displayName, email: user.email }));
-      } else {
-        dispatch(unsetUser());
-      }
-    });
-
-    return listen;
-  }, [dispatch]);
+    if (user) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, [user]);
 
   useEffect(() => {
     setIsShowMobile(false);
@@ -72,8 +64,10 @@ const SharedLayout = () => {
       <header>
         <ContainerHeader>
           <Logo />
-          <NavMenu />
+          <NavMenu isLogin={isLogin} />
           <Buttons
+          whenLogOut={whenLogOut}
+            setIsLogin={setIsLogin}
             setShowLogin={setShowLogin}
             setShowRegister={setShowRegister}
           />
@@ -89,7 +83,7 @@ const SharedLayout = () => {
           <Outlet />
         </Suspense>
       </MainSection>
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };

@@ -1,13 +1,11 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, reload } from "firebase/auth";
 import { Formik } from "formik";
 import * as yup from "yup";
-import { toast } from "react-toastify";
-import { auth } from "../../../firebase/firebase";
 import Modal from "../Modal";
 import sprite from "../../../icons/icons.svg";
-import { FormTitleContainer, Label, StyledField, StyledForm, SubmitBtn, ErrorContainer, StyledError } from "../Login/Login.styled";
+import { FormTitleContainer, Label, StyledField, StyledForm, SubmitBtn, StyledError } from "../Login/Login.styled";
+import { whenUserRegister } from "../../../firebase/api";
 
 const initialValues = {
   name: "",
@@ -35,25 +33,12 @@ const schema = yup.object().shape({
 
 const Register = ({ setShowRegister }) => {
   const [showPass, setShowPass] = useState(false);
-  const [errorRegister, setErrorRegister] = useState(null);
 
   const handleShowPass = () => setShowPass((prev) => !prev);
 
   const handleSubmit = (dataForm, { resetForm }) => {
-    setErrorRegister("");
-    createUserWithEmailAndPassword(auth, dataForm.email, dataForm.password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        updateProfile(user, { displayName: dataForm.name });
-        sendEmailVerification(auth.currentUser).then(reload(user));
-        setShowRegister(false);
-        toast.info("Please, verify your email to complete registration and login!");
-        return user;
-      })
-      .catch((error) => {
-        setErrorRegister("Email already in use");
-        toast.error("Email already in use!");
-      });
+    whenUserRegister(dataForm);
+    setShowRegister(false);
     resetForm();
   };
 
@@ -114,7 +99,6 @@ const Register = ({ setShowRegister }) => {
             <StyledError name="password" component="div" />
             
             <SubmitBtn type="submit">Sign Up</SubmitBtn>
-            <ErrorContainer>{errorRegister}</ErrorContainer>
           </StyledForm>
       </Formik>
     </Modal>
