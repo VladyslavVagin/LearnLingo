@@ -4,9 +4,11 @@ import { toast } from "react-toastify";
 import sprite from "../../../icons/icons.svg";
 import { ButtonsContainer, LogoutBtn, RegisterBtn } from "./Buttons.styled";
 import { getUserData } from "../../../firebase/api";
+import { useNavigate } from "react-router-dom";
 
 const Buttons = ({ setIsLogin, setShowLogin, setShowRegister, whenLogOut }) => {
   const user = getUserData();
+  const navigate = useNavigate();
 
   const handleLoginClick = () => {
     setShowLogin(true);
@@ -20,9 +22,14 @@ const Buttons = ({ setIsLogin, setShowLogin, setShowRegister, whenLogOut }) => {
     toast.warn('Please Log Out first for registration');
   }
 
+  const handleLogOut = () => {
+    whenLogOut(setIsLogin);
+    navigate('/home');
+  }
+
   return (
     <ButtonsContainer>
-      <LogoutBtn type="button" onClick={!user ? handleLoginClick : () => whenLogOut(setIsLogin)}>
+      <LogoutBtn type="button" onClick={!user ? handleLoginClick : handleLogOut}>
         <svg width={20} height={20}>
           <use xlinkHref={`${sprite}#icon-log-out`}></use>
         </svg>
