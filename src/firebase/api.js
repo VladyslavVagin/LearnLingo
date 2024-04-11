@@ -10,7 +10,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { auth } from "./firebase";
+import { auth, database } from "./firebase";
 import { useNavigate } from "react-router-dom";
 
 // ======================== USER REGISTRATION
@@ -64,3 +64,20 @@ export function getUserData() {
       return userData;
     }
   };
+
+  //========================= WRITE TEACHERS FAVORITES TO REAL-TIME DATABASE
+  export function getAllTeachers () {
+    let allTeachers = [];
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, 'teachers')).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        allTeachers = snapshot.val();
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+    return allTeachers;
+  }
