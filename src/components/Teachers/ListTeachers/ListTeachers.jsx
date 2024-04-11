@@ -2,27 +2,31 @@
 import React, { useEffect, useState } from "react";
 import TeacherItem from "../TeacherItem/TeacherItem";
 import { List, ShowMoreBtn } from "./ListTeachers.styled";
+import { getAllTeachers } from "../../../firebase/api";
 
 const ListTeachers = () => {
-  const teachersPerPage = 4;
-  // const [shownTeachers, setShownTeachers] = useState(teachers.slice(0, 4));
-  const [currentPage, setCurrentPage] = useState(1);
+  const [teachersPerPage, setTeachersPerPage] = useState(4);
+  const [teachers, setTeachers] = useState(null);
+
+  useEffect(() => {
+    const getTeachersData = async () => {
+      let teachersData = await getAllTeachers(teachersPerPage);
+      setTeachers(teachersData);
+    };
+    getTeachersData();
+  }, [teachersPerPage]);
 
   const handleShowMore = () => {
-    setCurrentPage((prev) => (prev += 1));
+    setTeachersPerPage((prev) => (prev += 4));
   };
-
-  // useEffect(() => {
-  //   setShownTeachers(teachers.slice(0, currentPage * teachersPerPage));
-  // }, [currentPage, teachers]);
 
   return (
     <>
-      {/* <List>
-        {shownTeachers.map((teach, index) => (
-          <TeacherItem key={index} teach={teach}/>
+      <List>
+        {teachers?.map((teach, index) => (
+          <TeacherItem key={index} teach={teach} />
         ))}
-      </List> */}
+      </List>
       <ShowMoreBtn type="button" onClick={handleShowMore}>
         Show more
       </ShowMoreBtn>

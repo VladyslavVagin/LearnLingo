@@ -1,17 +1,16 @@
 // @ts-nocheck
-import { getDatabase, ref, set, child, get } from "firebase/database";
+import { getDatabase, ref, child, get } from "firebase/database";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
   signInWithEmailAndPassword,
   reload,
-  signOut,
-  onAuthStateChanged,
+  // signOut,
+  // onAuthStateChanged,
 } from "firebase/auth";
 import { toast } from "react-toastify";
-import { auth, database } from "./firebase";
-import { useNavigate } from "react-router-dom";
+import { auth } from "./firebase";
 
 // ======================== USER REGISTRATION
 export function whenUserRegister(dataForm) {
@@ -66,18 +65,14 @@ export function getUserData() {
   };
 
   //========================= WRITE TEACHERS FAVORITES TO REAL-TIME DATABASE
-  export function getAllTeachers () {
-    let allTeachers = [];
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, 'teachers')).then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-        allTeachers = snapshot.val();
-      } else {
-        console.log("No data available");
-      }
-    }).catch((error) => {
+  export async function getAllTeachers (teachersPerPage) {
+    try {
+      const dbRef = ref(getDatabase());
+      const snapshot = await get(child(dbRef, 'teachers'));
+      const teachers = snapshot.val();
+      const firstTeachers = teachers.slice(0, teachersPerPage);
+      return firstTeachers;
+    } catch (error) {
       console.error(error);
-    });
-    return allTeachers;
+    }
   }
