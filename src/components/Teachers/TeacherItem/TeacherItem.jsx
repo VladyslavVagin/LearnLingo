@@ -8,7 +8,7 @@ import Levels from "../Levels/Levels";
 import ReadMoreInfo from "../ReadMoreInfo/ReadMoreInfo";
 import BookLessonBtn from "../ReadMoreInfo/BookLessonBtn/BookLessonBtn";
 import BookLesson from "../BookLesson/BookLesson";
-import { getUserData, addTeacher, getFavorites } from "../../../firebase/api";
+import { getUserData, addTeacher, getFavorites, removeTeacher } from "../../../firebase/api";
 import {
   BtnAddFavorite,
   GeneralItem,
@@ -46,38 +46,25 @@ const TeacherItem = ({ teach }) => {
     surname,
   } = teach;
 
-  // useEffect(() => {
-  //   const getFavData = async () => {
-  //     const favoritesArray = await getFavorites();
-  //     setFavoritArray(favoritesArray);
-  //   }
-  //   getFavData();
-  //   return () => getFavData();
-  // }, [])
   useEffect(() => {
-    // Listen for authentication state changes
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          // Fetch favorites when user is logged in
           const favData = await getFavorites();
           setFavoritArray(favData);
         } catch (error) {
           toast.error("Error fetching favorites");
         }
       } else {
-        // Clear favorites when user logs out
         setFavoritArray(null);
       }
     });
-
-    // Unsubscribe from the listener when component unmounts
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
     if(favoritesArray?.length > 0) {
-      favoritesArray?.some((favorite) => favorite?.id === id) && setIsFavorite(true);
+      favoritesArray?.some((favorite) => favorite?.id === id) ? setIsFavorite(true) : setIsFavorite(false);
     } else {
       return;
     }
@@ -102,8 +89,11 @@ const TeacherItem = ({ teach }) => {
         if (!isTeachInFavorites) {
           addTeacher(teach);
           setIsFavorite(true);
+          toast.success('Teacher was added to Favorites');
         } else {
-          toast.warn('Teacher is already in favorites');
+          removeTeacher(id);
+          setIsFavorite(false);
+          toast.success('Delete successfull');
         }
       } else {
         addTeacher(teach);

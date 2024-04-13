@@ -76,7 +76,7 @@ export async function getAllTeachers(teachersPerPage) {
   }
 }
 
-//========================= MANAGE TEACHERS IN FAVORITES
+//========================= ADD TEACHER TO FAVORITES
 export async function addTeacher(objectTeacher) {
   const userData = getUserData();
   const userId = userData?.uid;
@@ -86,7 +86,20 @@ export async function addTeacher(objectTeacher) {
   set(ref(db, `users/${userId}/teachers`), teachersArray);
 }
 
-
+//========================= REMOVE TEACHER FROM FAVORITES
+export async function removeTeacher(teacherID) {
+  const userData = getUserData();
+  const userId = userData?.uid;
+  const db = getDatabase();
+  try {
+    const arrayFavorites = await getFavorites();
+    const updatedFavorites = arrayFavorites?.filter(favorite => favorite.id !== teacherID);
+    set(ref(db, `users/${userId}/teachers`), updatedFavorites);
+    return updatedFavorites;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 //========================= GET ALL TEACHERS FROM REAL-TIME DATABASE
 export async function getFavorites() {

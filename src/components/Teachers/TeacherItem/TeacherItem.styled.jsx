@@ -144,8 +144,7 @@ export const BtnAddFavorite = styled.button`
     transition: var(--animation-hover);
   }
 
-  &:hover svg,
-  &:focus svg {
+  &:hover svg {
     stroke: var(--accent-color);
   }
 `;
