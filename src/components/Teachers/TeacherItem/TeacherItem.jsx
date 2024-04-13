@@ -42,22 +42,26 @@ const TeacherItem = ({ teach }) => {
 
   const handleAddFavorites = (e) => {
     const userData = getUserData();
-    let teachersArray = JSON.parse(localStorage.getItem('FavoritesTeachers')) || [];
+    let teachersArray =
+      JSON.parse(localStorage.getItem("FavoritesTeachers")) || [];
     const isTeacherFavorite = teachersArray.some((item) => item.id === id);
-    if(+e.currentTarget.id === id && !isTeacherFavorite) {
-      if (!userData) {
-        toast.error('Not Authorised User')
-        return;
-      } else {
+    if (!userData) {
+      toast.error("Not Authorised User");
+      return;
+    } else {
+      if (+e.currentTarget.id === id && !isTeacherFavorite) {
         teachersArray.push(teach);
-        localStorage.setItem('FavoritesTeachers', JSON.stringify(teachersArray));
+        localStorage.setItem(
+          "FavoritesTeachers",
+          JSON.stringify(teachersArray)
+        );
         console.log(teachersArray);
         addFavorites(teachersArray);
+      } else {
+        toast.warn("This teacher already in Favorites");
       }
-    } else {
-      toast.warn('This teacher already in Favorites');
     }
-  }
+  };
 
   useEffect(() => {
     if (showBookModal) {
