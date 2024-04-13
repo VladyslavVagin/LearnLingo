@@ -3,11 +3,10 @@ import React from "react";
 import { toast } from "react-toastify";
 import sprite from "../../../icons/icons.svg";
 import { ButtonsContainer, LogoutBtn, RegisterBtn } from "./Buttons.styled";
-import { getUserData } from "../../../firebase/api";
 import { useNavigate } from "react-router-dom";
 
 const Buttons = ({ setIsLogin, setShowLogin, setShowRegister, whenLogOut }) => {
-  const user = getUserData();
+  const isLoggedIn = JSON.parse(localStorage.getItem('isLogin'));
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -29,13 +28,13 @@ const Buttons = ({ setIsLogin, setShowLogin, setShowRegister, whenLogOut }) => {
 
   return (
     <ButtonsContainer>
-      <LogoutBtn type="button" onClick={!user ? handleLoginClick : handleLogOut}>
+      <LogoutBtn type="button" onClick={!isLoggedIn ? handleLoginClick : handleLogOut}>
         <svg width={20} height={20}>
           <use xlinkHref={`${sprite}#icon-log-out`}></use>
         </svg>
-        <p>{!user ? 'Log in' : 'Log out'}</p>
+        <p>{!isLoggedIn ? 'Log in' : 'Log out'}</p>
       </LogoutBtn>
-      <RegisterBtn type="button" onClick={!user ? handleRegistration : handlerRegistrationLogin}>
+      <RegisterBtn type="button" onClick={!isLoggedIn ? handleRegistration : handlerRegistrationLogin}>
         Registration
       </RegisterBtn>
     </ButtonsContainer>

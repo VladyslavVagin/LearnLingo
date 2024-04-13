@@ -1,8 +1,10 @@
+// @ts-nocheck
 import React from "react";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import { NavMenuList, NavigationLink } from "./NavMenu.styled";
 
-const NavMenu = ({ isLogin }) => {
+const NavMenu = () => {
+  const isLoggedIn = JSON.parse(localStorage.getItem('isLogin')) || false;
   return (
     <div>
       <NavMenuList>
@@ -12,7 +14,7 @@ const NavMenu = ({ isLogin }) => {
         <li>
           <NavigationLink to={"/teachers"}>Teachers</NavigationLink>
         </li>
-        {isLogin && (
+        {isLoggedIn && (
           <li>
             <NavigationLink to={"/favorites"}>Favorites</NavigationLink>
           </li>

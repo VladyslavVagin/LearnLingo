@@ -37,6 +37,7 @@ export function whenUserLogin(dataForm, setShowLogin) {
       if (res.user.emailVerified) {
         setShowLogin(false);
         toast.success(`Welcome ${res.user.displayName} to LearnLingo`);
+        localStorage.setItem('isLogin', 'true'); 
       } else {
         toast.warn("Please, verify Your email!");
       }
@@ -48,7 +49,7 @@ export function whenUserLogin(dataForm, setShowLogin) {
 export function whenLogOut(setIsLogin) {
   auth.signOut();
   setIsLogin(false);
-  localStorage.clear();
+  localStorage.removeItem('isLogin');
 }
 
 //========================= GET USER DATA
@@ -78,27 +79,22 @@ export async function getAllTeachers(teachersPerPage) {
   }
 }
 
-//========================= ADD TEACHER TO FAVORITES
-export function addFavorites(teachersArray) {
+//========================= MANAGE TEACHERS IN FAVORITES
+// Consolidated Firebase API calls
+export async function manageFavorites(action, teachersArray, teacherIdToDelete) {
   const userData = getUserData();
   const userId = userData?.uid;
   const db = getDatabase();
-  set(ref(db, "users/" + userId), {
-    teachers: teachersArray,
-  });
-}
 
-//========================= GET TEACHERS FROM FAVORITES
-export async function getFavorites(teachersPerPage) {
-  try {
-    const userData = getUserData();
-    const userId = userData?.uid;
-    const dbRef = ref(getDatabase());
-    const snapshot = await get(child(dbRef, `users/${userId}/teachers`));
-    const teachersFavorites = snapshot.val();
-    const visibleFavorites = teachersFavorites?.slice(0, teachersPerPage);
-    return visibleFavorites;
-  } catch (error) {
-    toast.error(`Database Error`);
+  if (action === 'add' || action === 'update') {
+    set(ref(db, `users/${userId}`), { teachers: teachersArray });
+  } else if (action === 'get') {
+    const snapshot = await get(child(ref(db), `users/${userId}/teachers`));
+    return snapshot.val();
+  } else if (action === 'delete' && teacherIdToDelete) {
+    const snapshot = await get(child(ref(db), `users/${userId}/teachers`));
+    const currentFavorites = snapshot.val();
+    const updatedFavorites = currentFavorites.filter(teacher => teacher.id !== teacherIdToDelete);
+    set(ref(db, `users/${userId}`), { teachers: updatedFavorites });
   }
 }

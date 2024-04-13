@@ -9,7 +9,7 @@ import BurgerBtn from "./BurgerBtn/BurgerBtn";
 import MobileMenu from "./MobileMenu/MobileMenu";
 import Login from "../Modal/Login/Login";
 import Register from "../Modal/Register/Register";
-import { getUserData, whenLogOut } from "../../firebase/api";
+import { whenLogOut } from "../../firebase/api";
 import { ContainerHeader, MainSection } from "./SharedLayout.styled";
 
 const SharedLayout = () => {
@@ -18,15 +18,11 @@ const SharedLayout = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const location = useLocation();
-  const user = getUserData();
 
   useEffect(() => {
-    if (user) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, [user]);
+    const isUserLoggedIn = localStorage.getItem('isLogin') === 'true';
+    setIsLogin(isUserLoggedIn);
+  }, []);
 
   useEffect(() => {
     setIsShowMobile(false);
@@ -64,9 +60,9 @@ const SharedLayout = () => {
       <header>
         <ContainerHeader>
           <Logo />
-          <NavMenu isLogin={isLogin} />
+          <NavMenu/>
           <Buttons
-          whenLogOut={whenLogOut}
+            whenLogOut={whenLogOut}
             setIsLogin={setIsLogin}
             setShowLogin={setShowLogin}
             setShowRegister={setShowRegister}
