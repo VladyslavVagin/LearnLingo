@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, set, child, get } from "firebase/database";
 import {
   createUserWithEmailAndPassword,
   updateProfile,
@@ -45,34 +45,48 @@ export function whenUserLogin(dataForm, setShowLogin) {
 }
 
 // ======================== USER LOGOUT
-export function whenLogOut (setIsLogin) {
-    auth.signOut();
-    setIsLogin(false);
+export function whenLogOut(setIsLogin) {
+  auth.signOut();
+  setIsLogin(false);
 }
 
 //========================= GET USER DATA
 export function getUserData() {
-    const user = auth.currentUser;
-    if (user !== null) {
-      const userData = {
-        name: user.displayName,
-        email: user.email,
-        emailVerified: user.emailVerified,
-        uid: user.uid,
-      }
-      return userData;
-    }
-  };
-
-  //========================= WRITE TEACHERS FAVORITES TO REAL-TIME DATABASE
-  export async function getAllTeachers (teachersPerPage) {
-    try {
-      const dbRef = ref(getDatabase());
-      const snapshot = await get(child(dbRef, 'teachers'));
-      const teachers = snapshot.val();
-      const firstTeachers = teachers.slice(0, teachersPerPage);
-      return firstTeachers;
-    } catch (error) {
-      console.error(error);
-    }
+  const user = auth.currentUser;
+  if (user !== null) {
+    const userData = {
+      name: user.displayName,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      uid: user.uid,
+    };
+    return userData;
   }
+}
+
+//========================= GET ALL TEACHERS FROM REAL-TIME DATABASE
+export async function getAllTeachers(teachersPerPage) {
+  try {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, "teachers"));
+    const teachers = snapshot.val();
+    const firstTeachers = teachers.slice(0, teachersPerPage);
+    return firstTeachers;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//========================= ADD TEACHER TO FAVORITES
+export function addFavorites(teachersArray) {
+    const userData = getUserData();
+    if (!userData) {
+      toast.error("Unknown user!");
+      return;
+    }
+    const userId = userData.uid;
+    const db = getDatabase();
+    set(ref(db, "users/" + userId), {
+      teachers: teachersArray,
+    });
+}
