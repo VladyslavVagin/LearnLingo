@@ -5,6 +5,7 @@ import Levels from "../Levels/Levels";
 import ReadMoreInfo from "../ReadMoreInfo/ReadMoreInfo";
 import BookLessonBtn from "../ReadMoreInfo/BookLessonBtn/BookLessonBtn";
 import BookLesson from "../BookLesson/BookLesson";
+import { addFavorites, getUserData } from "../../../firebase/api";
 import {
   BtnAddFavorite,
   GeneralItem,
@@ -18,6 +19,7 @@ import {
   TitleCardContainer,
   UpperContent,
 } from "./TeacherItem.styled";
+import { toast } from "react-toastify";
 
 const TeacherItem = ({ teach }) => {
   const [showInfo, setShowInfo] = useState(false);
@@ -37,6 +39,25 @@ const TeacherItem = ({ teach }) => {
     reviews,
     surname,
   } = teach;
+
+  const handleAddFavorites = (e) => {
+    const userData = getUserData();
+    let teachersArray = JSON.parse(localStorage.getItem('FavoritesTeachers')) || [];
+    const isTeacherFavorite = teachersArray.some((item) => item.id === id);
+    if(+e.currentTarget.id === id && !isTeacherFavorite) {
+      if (!userData) {
+        toast.error('Not Authorised User')
+        return;
+      } else {
+        teachersArray.push(teach);
+        localStorage.setItem('FavoritesTeachers', JSON.stringify(teachersArray));
+        console.log(teachersArray);
+        addFavorites(teachersArray);
+      }
+    } else {
+      toast.warn('This teacher already in Favorites');
+    }
+  }
 
   useEffect(() => {
     if (showBookModal) {
@@ -130,7 +151,7 @@ const TeacherItem = ({ teach }) => {
           </div>
         </div>
       </ListItemContainer>
-      <BtnAddFavorite type="button" id={id}>
+      <BtnAddFavorite type="button" id={id} onClick={handleAddFavorites}>
         <svg width={26} height={26}>
           <use xlinkHref={`${sprite}#icon-heart`}></use>
         </svg>

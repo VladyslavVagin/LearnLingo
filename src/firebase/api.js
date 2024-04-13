@@ -80,13 +80,15 @@ export async function getAllTeachers(teachersPerPage) {
 //========================= ADD TEACHER TO FAVORITES
 export function addFavorites(teachersArray) {
     const userData = getUserData();
+    console.log(userData);
     if (!userData) {
       toast.error("Unknown user!");
       return;
+    } else {
+      const userId = userData?.uid;
+      const db = getDatabase();
+      set(ref(db, "users/" + userId), {
+        teachers: teachersArray,
+      });
     }
-    const userId = userData.uid;
-    const db = getDatabase();
-    set(ref(db, "users/" + userId), {
-      teachers: teachersArray,
-    });
 }
