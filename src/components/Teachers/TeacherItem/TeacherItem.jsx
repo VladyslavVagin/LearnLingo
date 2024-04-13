@@ -1,12 +1,14 @@
 // @ts-nocheck
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 import { toast } from "react-toastify";
 import sprite from "../../../icons/icons.svg";
+import { auth } from "../../../firebase/firebase";
 import Levels from "../Levels/Levels";
 import ReadMoreInfo from "../ReadMoreInfo/ReadMoreInfo";
 import BookLessonBtn from "../ReadMoreInfo/BookLessonBtn/BookLessonBtn";
 import BookLesson from "../BookLesson/BookLesson";
-import { getUserData, manageFavorites } from "../../../firebase/api";
+import { getUserData, addTeacher, getFavorites } from "../../../firebase/api";
 import {
   BtnAddFavorite,
   GeneralItem,
@@ -20,12 +22,11 @@ import {
   TitleCardContainer,
   UpperContent,
 } from "./TeacherItem.styled";
-import { useFavoritesData } from "../../../hooks/useFavoritesData";
+
 
 const TeacherItem = ({ teach }) => {
-  const favouritesData = useFavoritesData();
-  let favoritesArray = useMemo(() => favouritesData || [], [favouritesData]);
   const [showInfo, setShowInfo] = useState(false);
+  const [favoritesArray, setFavoritArray] = useState(null);
   const [showBookModal, setShowBookModal] = useState(false);
   const [isLoggedIn] = useState(JSON.parse(localStorage.getItem('isLogin')) || false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -44,6 +45,35 @@ const TeacherItem = ({ teach }) => {
     reviews,
     surname,
   } = teach;
+
+  // useEffect(() => {
+  //   const getFavData = async () => {
+  //     const favoritesArray = await getFavorites();
+  //     setFavoritArray(favoritesArray);
+  //   }
+  //   getFavData();
+  //   return () => getFavData();
+  // }, [])
+  useEffect(() => {
+    // Listen for authentication state changes
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          // Fetch favorites when user is logged in
+          const favData = await getFavorites();
+          setFavoritArray(favData);
+        } catch (error) {
+          toast.error("Error fetching favorites");
+        }
+      } else {
+        // Clear favorites when user logs out
+        setFavoritArray(null);
+      }
+    });
+
+    // Unsubscribe from the listener when component unmounts
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     if(favoritesArray?.length > 0) {
@@ -67,18 +97,16 @@ const TeacherItem = ({ teach }) => {
   const handleAddFavorite = (e) => {
     const userData = getUserData();
     if (isLoggedIn || (!isLoggedIn && userData)) {
-      if (favoritesArray.length > 0) {
-        const isTeachInFavorites = favoritesArray.some((favorite) => favorite.id === teach.id);
+      if (favoritesArray?.length > 0) {
+        const isTeachInFavorites = favoritesArray?.some((favorite) => favorite.id === id);
         if (!isTeachInFavorites) {
-          favoritesArray = [...favoritesArray, teach];
-          manageFavorites('add', favoritesArray);
+          addTeacher(teach);
           setIsFavorite(true);
         } else {
           toast.warn('Teacher is already in favorites');
         }
       } else {
-        favoritesArray = [teach];
-        manageFavorites('add', favoritesArray);
+        addTeacher(teach);
         setIsFavorite(true);
       }
     } else {
@@ -134,7 +162,7 @@ const TeacherItem = ({ teach }) => {
                 <p>
                   Speaks:{" "}
                   <Langs>
-                    {[...languages.slice(0, -1), languages.slice(-1)[0]].join(
+                    {[...languages?.slice(0, -1), languages?.slice(-1)[0]].join(
                       ", "
                     )}
                   </Langs>

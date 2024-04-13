@@ -44,9 +44,8 @@ export function whenUserLogin(dataForm, setShowLogin) {
 }
 
 // ======================== USER LOGOUT
-export function whenLogOut(setIsLogin) {
+export function whenLogOut() {
   auth.signOut();
-  setIsLogin(false);
   localStorage.removeItem('isLogin');
 }
 
@@ -78,20 +77,26 @@ export async function getAllTeachers(teachersPerPage) {
 }
 
 //========================= MANAGE TEACHERS IN FAVORITES
-export async function manageFavorites(action, teachersArray, teacherIdToDelete) {
+export async function addTeacher(objectTeacher) {
   const userData = getUserData();
   const userId = userData?.uid;
   const db = getDatabase();
+  let teachersArray = (await get(ref(db, `users/${userId}/teachers`))).val() || [];
+  teachersArray.push(objectTeacher);
+  set(ref(db, `users/${userId}/teachers`), teachersArray);
+}
 
-  if (action === 'add' || action === 'update') {
-    set(ref(db, `users/${userId}`), { teachers: teachersArray });
-  } else if (action === 'get') {
-    const snapshot = await get(child(ref(db), `users/${userId}/teachers`));
+
+
+//========================= GET ALL TEACHERS FROM REAL-TIME DATABASE
+export async function getFavorites() {
+  const userData = getUserData();
+  const userId = userData?.uid;
+  const db = getDatabase();
+  try {
+    const snapshot = await get(child(ref(db),`users/${userId}/teachers`));
     return snapshot.val();
-  } else if (action === 'delete' && teacherIdToDelete) {
-    const snapshot = await get(child(ref(db), `users/${userId}/teachers`));
-    const currentFavorites = snapshot.val();
-    const updatedFavorites = currentFavorites.filter(teacher => teacher.id !== teacherIdToDelete);
-    set(ref(db, `users/${userId}`), { teachers: updatedFavorites });
+  } catch (error) {
+    console.error(error);
   }
 }

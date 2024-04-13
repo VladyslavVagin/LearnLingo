@@ -9,7 +9,7 @@ const ListFavTeach = ({ favorites }) => {
   return (
     <>
       <List>
-        {favorites?.map((teach, index) => (
+        {favorites?.length > 0 && favorites?.map((teach, index) => (
           <TeacherItem key={index} teach={teach} />
         ))}
       </List>
