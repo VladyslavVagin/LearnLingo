@@ -1,10 +1,12 @@
 // @ts-nocheck
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { toast } from "react-toastify";
 import sprite from "../../../icons/icons.svg";
 import Levels from "../Levels/Levels";
 import ReadMoreInfo from "../ReadMoreInfo/ReadMoreInfo";
 import BookLessonBtn from "../ReadMoreInfo/BookLessonBtn/BookLessonBtn";
 import BookLesson from "../BookLesson/BookLesson";
+import { getUserData, manageFavorites } from "../../../firebase/api";
 import {
   BtnAddFavorite,
   GeneralItem,
@@ -18,10 +20,15 @@ import {
   TitleCardContainer,
   UpperContent,
 } from "./TeacherItem.styled";
+import { useFavoritesData } from "../../../hooks/useFavoritesData";
 
 const TeacherItem = ({ teach }) => {
+  const favouritesData = useFavoritesData();
+  let favoritesArray = useMemo(() => favouritesData || [], [favouritesData]);
   const [showInfo, setShowInfo] = useState(false);
   const [showBookModal, setShowBookModal] = useState(false);
+  const [isLoggedIn] = useState(JSON.parse(localStorage.getItem('isLogin')) || false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const {
     id,
     avatar_url,
@@ -38,7 +45,13 @@ const TeacherItem = ({ teach }) => {
     surname,
   } = teach;
 
-
+  useEffect(() => {
+    if(favoritesArray?.length > 0) {
+      favoritesArray?.some((favorite) => favorite?.id === id) && setIsFavorite(true);
+    } else {
+      return;
+    }
+  }, [favoritesArray, id])
 
   useEffect(() => {
     if (showBookModal) {
@@ -50,6 +63,28 @@ const TeacherItem = ({ teach }) => {
       document.body.style.overflow = "auto";
     };
   }, [showBookModal]);
+
+  const handleAddFavorite = (e) => {
+    const userData = getUserData();
+    if (isLoggedIn || (!isLoggedIn && userData)) {
+      if (favoritesArray.length > 0) {
+        const isTeachInFavorites = favoritesArray.some((favorite) => favorite.id === teach.id);
+        if (!isTeachInFavorites) {
+          favoritesArray = [...favoritesArray, teach];
+          manageFavorites('add', favoritesArray);
+          setIsFavorite(true);
+        } else {
+          toast.warn('Teacher is already in favorites');
+        }
+      } else {
+        favoritesArray = [teach];
+        manageFavorites('add', favoritesArray);
+        setIsFavorite(true);
+      }
+    } else {
+      toast.warn('Please, Login first');
+    }
+  };
 
   return (
     <GeneralItem>
@@ -132,8 +167,8 @@ const TeacherItem = ({ teach }) => {
           </div>
         </div>
       </ListItemContainer>
-      <BtnAddFavorite type="button" id={id}>
-        <svg width={26} height={26}>
+      <BtnAddFavorite type="button" id={id} onClick={handleAddFavorite}>
+        <svg width={26} height={26} style={isFavorite ? {fill: "var(--accent-color)", stroke: "var(--accent-color)"} : {fill: 'transparent'}}>
           <use xlinkHref={`${sprite}#icon-heart`}></use>
         </svg>
       </BtnAddFavorite>

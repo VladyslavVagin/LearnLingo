@@ -57,3 +57,18 @@ export const RegisterBtn = styled.button`
     background-color: var(--accent-color);
   }
 `;
+
+
+export const UserName = styled.div`
+ width: 164px;
+ height: 46px;
+ text-align: center;
+ background-color: white;
+ border: 1px solid var(--accent-color);
+ color: var(--accent-color);
+ border-radius: 12px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+`

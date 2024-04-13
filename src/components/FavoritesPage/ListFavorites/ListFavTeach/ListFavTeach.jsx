@@ -1,13 +1,11 @@
-import React from 'react'
-import TeacherItem from '../../../Teachers/TeacherItem/TeacherItem';
-import { List, ShowMoreBtn } from "../../../Teachers/ListTeachers/ListTeachers.styled";
+import React from "react";
+import TeacherItem from "../../../Teachers/TeacherItem/TeacherItem";
+import {
+  List,
+  ShowMoreBtn,
+} from "../../../Teachers/ListTeachers/ListTeachers.styled";
 
-const ListFavTeach = ({setFavoritesPerPage, favorites}) => {
-
-    const handleShowMore = () => {
-        setFavoritesPerPage((prev) => (prev += 4));
-      };
-
+const ListFavTeach = ({ favorites }) => {
   return (
     <>
       <List>
@@ -15,11 +13,9 @@ const ListFavTeach = ({setFavoritesPerPage, favorites}) => {
           <TeacherItem key={index} teach={teach} />
         ))}
       </List>
-      <ShowMoreBtn type="button" onClick={handleShowMore}>
-        Show more
-      </ShowMoreBtn>
+      {favorites?.length > 4 && (<ShowMoreBtn type="button">Show more</ShowMoreBtn>)}
     </>
-  )
-}
+  );
+};
 
-export default ListFavTeach
+export default ListFavTeach;

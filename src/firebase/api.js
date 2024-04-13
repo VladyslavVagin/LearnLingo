@@ -6,8 +6,6 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   reload,
-  // signOut,
-  // onAuthStateChanged,
 } from "firebase/auth";
 import { toast } from "react-toastify";
 import { auth } from "./firebase";
@@ -36,7 +34,7 @@ export function whenUserLogin(dataForm, setShowLogin) {
     .then((res) => {
       if (res.user.emailVerified) {
         setShowLogin(false);
-        toast.success(`Welcome ${res.user.displayName} to LearnLingo`);
+        toast.success(`Welcome ${res.user?.displayName} to LearnLingo`);
         localStorage.setItem('isLogin', 'true'); 
       } else {
         toast.warn("Please, verify Your email!");
@@ -80,7 +78,6 @@ export async function getAllTeachers(teachersPerPage) {
 }
 
 //========================= MANAGE TEACHERS IN FAVORITES
-// Consolidated Firebase API calls
 export async function manageFavorites(action, teachersArray, teacherIdToDelete) {
   const userData = getUserData();
   const userId = userData?.uid;

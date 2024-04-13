@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Suspense, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { Outlet, useLocation } from "react-router-dom";
@@ -16,13 +15,7 @@ const SharedLayout = () => {
   const [isShowMobile, setIsShowMobile] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const isUserLoggedIn = localStorage.getItem('isLogin') === 'true';
-    setIsLogin(isUserLoggedIn);
-  }, []);
 
   useEffect(() => {
     setIsShowMobile(false);
@@ -63,7 +56,6 @@ const SharedLayout = () => {
           <NavMenu/>
           <Buttons
             whenLogOut={whenLogOut}
-            setIsLogin={setIsLogin}
             setShowLogin={setShowLogin}
             setShowRegister={setShowRegister}
           />
