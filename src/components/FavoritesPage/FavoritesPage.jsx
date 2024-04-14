@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ListFavorites from './ListFavorites/ListFavorites'
 
 const FavoritesPage = () => {
+  const [favorites, setFavorites] = useState(null);
 
   return (
     <div>
-      <ListFavorites/>
+      <ListFavorites favorites={favorites} setFavorites={setFavorites}/>
     </div>
   )
 }

@@ -1,14 +1,13 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
 import NoFavorites from "./NoFavorites/NoFavorites";
-import { auth } from "../../../firebase/firebase";
 import ListFavTeach from "./ListFavTeach/ListFavTeach";
 import { getFavorites } from "../../../firebase/api";
 
-const ListFavorites = () => {
-  const [favorites, setFavorites] = useState(null)
+const ListFavorites = ({favorites, setFavorites}) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -24,12 +23,17 @@ const ListFavorites = () => {
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [setFavorites]);
 
-
-  return <div>
-    {favorites?.length > 0 ? <ListFavTeach favorites={favorites}/> : <NoFavorites/>}
-  </div>;
+  return (
+    <div>
+      {favorites?.length > 0 ? (
+        <ListFavTeach favorites={favorites} setFavorites={setFavorites} />
+      ) : (
+        <NoFavorites />
+      )}
+    </div>
+  );
 };
 
 export default ListFavorites;
