@@ -51,8 +51,6 @@ const FavoriteItem = ({ teach, setFavorites, favorites }) => {
     }
   }, [favoritesArray, setFavorites])
 
-  console.log(favorites);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -87,7 +85,6 @@ const FavoriteItem = ({ teach, setFavorites, favorites }) => {
       setFavorites((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id));
     }
   };
-
 
   return (
     <GeneralItem>

@@ -8,7 +8,6 @@ import ListFavTeach from "./ListFavTeach/ListFavTeach";
 import { getFavorites } from "../../../firebase/api";
 
 const ListFavorites = ({favorites, setFavorites}) => {
-  console.log(favorites);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {

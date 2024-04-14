@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from "react";
+import React, { useState, useEffect } from "react";
 import FavoriteItem from "../FavoriteItem/FavoriteItem";
 import {
   List,
@@ -7,14 +7,31 @@ import {
 } from "../../../Teachers/ListTeachers/ListTeachers.styled";
 
 const ListFavTeach = ({ favorites, setFavorites }) => {
+  const [teachersPerPage, setTeachersPerPage] = useState(4);
+  const [showFavorites, setShowFavorites] = useState(favorites);
+
+  useEffect(() => {
+    const getFavoritesTeachers = () => {
+      const firstFavorites = favorites.slice(0, teachersPerPage);
+      setShowFavorites(firstFavorites);
+    };
+    getFavoritesTeachers();
+
+    return () => getFavoritesTeachers();
+  }, [favorites, teachersPerPage]);
+
+  const handleShowMore = () => {
+    setTeachersPerPage((prev) => (prev += 4));
+  };
+
   return (
     <>
       <List>
-        {favorites?.length > 0 && favorites?.map((teach, index) => (
+        {showFavorites?.length > 0 && showFavorites?.map((teach, index) => (
           <FavoriteItem key={index} teach={teach} setFavorites={setFavorites} favorites={favorites}/>
         ))}
       </List>
-      {favorites?.length > 4 && (<ShowMoreBtn type="button">Show more</ShowMoreBtn>)}
+      {(showFavorites?.length !== favorites?.length) && (<ShowMoreBtn type="button" onClick={handleShowMore}>Show more</ShowMoreBtn>)}
     </>
   );
 };
