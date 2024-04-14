@@ -1,15 +1,25 @@
 // @ts-nocheck
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { onAuthStateChanged } from "firebase/auth";
 import sprite from "../../../icons/icons.svg";
 import { ButtonsContainer, LogoutBtn, RegisterBtn, UserName } from "./Buttons.styled";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase/firebase";
 
 const Buttons = ({ setShowLogin, setShowRegister, whenLogOut }) => {
+  const [userName, setUserName] = useState(auth?.currentUser?.displayName);
   const isLoggedIn = JSON.parse(localStorage.getItem("isLogin"));
-  const userName = auth?.currentUser?.displayName;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+       setUserName(user.displayName);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleLoginClick = () => {
     setShowLogin(true);
