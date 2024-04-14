@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../firebase/firebase";
 import { toast } from "react-toastify";
@@ -9,7 +9,6 @@ import { getFavorites } from "../../../firebase/api";
 
 const ListFavorites = ({favorites, setFavorites}) => {
   console.log(favorites);
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {

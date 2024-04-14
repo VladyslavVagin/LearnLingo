@@ -23,11 +23,11 @@ import {
   UpperContent,
 } from "../../../Teachers/TeacherItem/TeacherItem.styled";
 
-const FavoriteItem = ({ teach, setFavorites }) => {
+const FavoriteItem = ({ teach, setFavorites, favorites }) => {
   const [showInfo, setShowInfo] = useState(false);
   const [favoritesArray, setFavoritArray] = useState(null);
   const [showBookModal, setShowBookModal] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFav, setIsFav] = useState(false);
   const {
     id,
     avatar_url,
@@ -46,17 +46,19 @@ const FavoriteItem = ({ teach, setFavorites }) => {
 
   useEffect(() => {
     if(favoritesArray) {
+      console.log(favoritesArray);
       setFavorites(favoritesArray);
     }
   }, [favoritesArray, setFavorites])
 
+  console.log(favorites);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
           const favData = await getFavorites();
-          setFavoritArray(favData);
+          favData?.some((elem) => elem?.id === id) ? setIsFav(true) : setIsFav(false);
         } catch (error) {
           toast.error("Error fetching favorites");
         }
@@ -65,17 +67,7 @@ const FavoriteItem = ({ teach, setFavorites }) => {
       }
     });
     return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (favoritesArray?.length > 0) {
-      favoritesArray?.some((favorite) => favorite?.id === id)
-        ? setIsFavorite(true)
-        : setIsFavorite(false);
-    } else {
-      return;
-    }
-  }, [favoritesArray, id]);
+  }, [id]);
 
   useEffect(() => {
     if (showBookModal) {
@@ -89,11 +81,14 @@ const FavoriteItem = ({ teach, setFavorites }) => {
   }, [showBookModal]);
 
   const handleRemoveFavorite = () => {
-    setIsFavorite(false);
-    removeTeacher(id);
-    setFavoritArray((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id)
-    );
+    if(isFav) {
+      removeTeacher(id);
+      setIsFav(false);
+      setFavorites((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id));
+    }
   };
+
+
   return (
     <GeneralItem>
       <ListItemContainer>
@@ -180,7 +175,7 @@ const FavoriteItem = ({ teach, setFavorites }) => {
           width={26}
           height={26}
           style={
-            isFavorite
+            isFav
               ? { fill: "var(--accent-color)", stroke: "var(--accent-color)" }
               : { fill: "transparent" }
           }

@@ -26,7 +26,7 @@ import {
 
 const TeacherItem = ({ teach }) => {
   const [showInfo, setShowInfo] = useState(false);
-  const [favoritesArray, setFavoritArray] = useState(null);
+  const [favArray, setFavArray] = useState(null);
   const [showBookModal, setShowBookModal] = useState(false);
   const [isLoggedIn] = useState(JSON.parse(localStorage.getItem('isLogin')) || false);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -51,24 +51,24 @@ const TeacherItem = ({ teach }) => {
       if (user) {
         try {
           const favData = await getFavorites();
-          setFavoritArray(favData);
+          setFavArray(favData);
         } catch (error) {
           toast.error("Error fetching favorites");
         }
       } else {
-        setFavoritArray(null);
+        setFavArray(null);
       }
     });
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    if(favoritesArray?.length > 0) {
-      favoritesArray?.some((favorite) => favorite?.id === id) ? setIsFavorite(true) : setIsFavorite(false);
+    if(favArray?.length > 0) {
+      favArray?.some((favorite) => favorite?.id === id) ? setIsFavorite(true) : setIsFavorite(false);
     } else {
       return;
     }
-  }, [favoritesArray, id])
+  }, [favArray, id])
 
   useEffect(() => {
     if (showBookModal) {
@@ -81,22 +81,31 @@ const TeacherItem = ({ teach }) => {
     };
   }, [showBookModal]);
 
-  const handleAddFavorite = (e) => {
+  const handleAddFavorite = () => {
     const userData = getUserData();
     if (isLoggedIn || (!isLoggedIn && userData)) {
-        const isTeachInFavorites = favoritesArray?.some((favorite) => favorite.id === id);
-        if (!isTeachInFavorites) {
-          addTeacher(teach);
-          setIsFavorite(true);
-        } else {
-          removeTeacher(id);
-          setIsFavorite(false);
-          setFavoritArray((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id));
-        }
+      const isInFavorite = favArray?.some(el => el.id === id);
+      if(!isInFavorite) {
+        addTeacher(teach);
+        setIsFavorite(true);
+      } else {
+        handleDelete();
+      }
     } else {
       toast.warn('Please, Login first');
     }
   };
+
+  const handleDelete = () => {
+    const userData = getUserData();
+    if (isLoggedIn || (!isLoggedIn && userData)) {
+      removeTeacher(id);
+      setIsFavorite(false);
+      setFavArray((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id));
+    } else {
+      toast.warn('Please, Login first');
+    }
+  }
 
   return (
     <GeneralItem>

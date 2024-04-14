@@ -82,7 +82,11 @@ export async function addTeacher(objectTeacher) {
   const userId = userData?.uid;
   const db = getDatabase();
   let teachersArray = (await get(ref(db, `users/${userId}/teachers`))).val() || [];
-  teachersArray.push(objectTeacher);
+  if(teachersArray?.length < 1) {
+    teachersArray = [objectTeacher];
+  } else {
+    teachersArray = [...teachersArray, objectTeacher];
+  }
   set(ref(db, `users/${userId}/teachers`), teachersArray);
 }
 

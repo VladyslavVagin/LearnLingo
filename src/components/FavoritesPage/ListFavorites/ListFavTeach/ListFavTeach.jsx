@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import FavoriteItem from "../FavoriteItem/FavoriteItem";
 import {
@@ -10,7 +11,7 @@ const ListFavTeach = ({ favorites, setFavorites }) => {
     <>
       <List>
         {favorites?.length > 0 && favorites?.map((teach, index) => (
-          <FavoriteItem key={index} teach={teach} setFavorites={setFavorites}/>
+          <FavoriteItem key={index} teach={teach} setFavorites={setFavorites} favorites={favorites}/>
         ))}
       </List>
       {favorites?.length > 4 && (<ShowMoreBtn type="button">Show more</ShowMoreBtn>)}
