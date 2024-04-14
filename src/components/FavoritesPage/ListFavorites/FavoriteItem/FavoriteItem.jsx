@@ -44,9 +44,13 @@ const FavoriteItem = ({ teach, setFavorites }) => {
     surname,
   } = teach;
 
-  if(favoritesArray) {
-    setFavorites(favoritesArray);
-  }
+  useEffect(() => {
+    if(favoritesArray) {
+      setFavorites(favoritesArray);
+    }
+  }, [favoritesArray, setFavorites])
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -71,7 +75,7 @@ const FavoriteItem = ({ teach, setFavorites }) => {
     } else {
       return;
     }
-  }, [favoritesArray, id, setFavorites]);
+  }, [favoritesArray, id]);
 
   useEffect(() => {
     if (showBookModal) {
@@ -87,8 +91,7 @@ const FavoriteItem = ({ teach, setFavorites }) => {
   const handleRemoveFavorite = () => {
     setIsFavorite(false);
     removeTeacher(id);
-    setFavoritArray((prevFavorites) =>
-      prevFavorites?.filter((favorite) => favorite?.id !== id)
+    setFavoritArray((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id)
     );
   };
   return (

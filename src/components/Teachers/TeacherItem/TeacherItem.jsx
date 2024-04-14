@@ -93,11 +93,13 @@ const TeacherItem = ({ teach }) => {
         } else {
           removeTeacher(id);
           setIsFavorite(false);
+          setFavoritArray((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id));
           toast.success('Delete successfull');
         }
       } else {
         addTeacher(teach);
         setIsFavorite(true);
+        toast.success('Teacher was added to Favorites');
       }
     } else {
       toast.warn('Please, Login first');
