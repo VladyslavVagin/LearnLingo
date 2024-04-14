@@ -84,23 +84,15 @@ const TeacherItem = ({ teach }) => {
   const handleAddFavorite = (e) => {
     const userData = getUserData();
     if (isLoggedIn || (!isLoggedIn && userData)) {
-      if (favoritesArray?.length > 0) {
         const isTeachInFavorites = favoritesArray?.some((favorite) => favorite.id === id);
         if (!isTeachInFavorites) {
           addTeacher(teach);
           setIsFavorite(true);
-          toast.success('Teacher was added to Favorites');
         } else {
           removeTeacher(id);
           setIsFavorite(false);
           setFavoritArray((prevFavorites) => prevFavorites?.filter((item) => item?.id !== id));
-          toast.success('Delete successfull');
         }
-      } else {
-        addTeacher(teach);
-        setIsFavorite(true);
-        toast.success('Teacher was added to Favorites');
-      }
     } else {
       toast.warn('Please, Login first');
     }
