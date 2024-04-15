@@ -27,9 +27,9 @@ const ListTeachers = () => {
           <TeacherItem key={index} teach={teach} />
         ))}
       </List>
-      <ShowMoreBtn type="button" onClick={handleShowMore}>
+      {teachers?.length < 30 && (<ShowMoreBtn type="button" onClick={handleShowMore}>
         Show more
-      </ShowMoreBtn>
+      </ShowMoreBtn>)}
     </>
   );
 };

@@ -3,7 +3,17 @@ import Select from "react-select";
 import { languages } from '../../../../lib/info';
 import { SearchContainer, LabelSelect, SelectContainer } from './SelectLanguage.styled';
 
-const SelectLanguage = () => {
+const SelectLanguage = ({setLanguage}) => {
+
+  const handleChange = (e) => {
+    if(e === null) {
+      setLanguage(null);
+     return;
+    } else {
+      setLanguage(e.value);
+    }
+  };
+
   return (
     <SearchContainer>
     <SelectContainer>
@@ -11,6 +21,7 @@ const SelectLanguage = () => {
       <Select
         options={languages}
         placeholder={"Language"}
+        onChange={handleChange}
         maxMenuHeight={272}
         isClearable={true}
         styles={{
@@ -18,7 +29,7 @@ const SelectLanguage = () => {
             ...baseStyles,
             border: state.isFocused ? "1px solid var(--accent-color)" : "1px solid var(--accent-light)",
             outline: "none",
-            width: "185px",
+            width: "221px",
             height: "48px",
             background: "#fff",
             borderRadius: "14px",

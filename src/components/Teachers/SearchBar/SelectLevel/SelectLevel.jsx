@@ -3,7 +3,17 @@ import Select from "react-select";
 import { levels } from '../../../../lib/info';
 import { SearchContainer, LabelSelect, SelectContainer } from '../SelectLanguage/SelectLanguage.styled';
 
-const SelectLanguage = () => {
+const SelectLevel = ({setLvl}) => {
+
+  const handleChange = (e) => {
+    if(e === null) {
+      setLvl(null);
+     return;
+    } else {
+      setLvl(e.value);
+    }
+  };
+
   return (
     <SearchContainer>
     <SelectContainer>
@@ -11,6 +21,7 @@ const SelectLanguage = () => {
       <Select
         options={levels}
         placeholder={"Level"}
+        onChange={handleChange}
         maxMenuHeight={272}
         isClearable={true}
         styles={{
@@ -18,7 +29,7 @@ const SelectLanguage = () => {
             ...baseStyles,
             border: state.isFocused ? "1px solid var(--accent-color)" : "1px solid var(--accent-light)",
             outline: "none",
-            width: "185px",
+            width: "198px",
             height: "48px",
             background: "#fff",
             borderRadius: "14px",
@@ -58,4 +69,4 @@ const SelectLanguage = () => {
   )
 }
 
-export default SelectLanguage
+export default SelectLevel
