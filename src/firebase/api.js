@@ -105,7 +105,7 @@ export async function removeTeacher(teacherID) {
   }
 }
 
-//========================= GET ALL TEACHERS FROM REAL-TIME DATABASE
+//========================= GET ALL FAVORITES TEACHERS FROM REAL-TIME DATABASE
 export async function getFavorites() {
   const userData = getUserData();
   const userId = userData?.uid;
@@ -113,6 +113,19 @@ export async function getFavorites() {
   try {
     const snapshot = await get(child(ref(db),`users/${userId}/teachers`));
     return snapshot.val();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//========================= GET ALL TEACHERS BY LANGUAGES
+export async function getTeachersByLanguage(language) {
+  try {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, "teachers"));
+    const teachers = snapshot.val();
+    const filteredTeachers = Object.values(teachers).filter(teacher => teacher.languages.includes(language));
+    return filteredTeachers;
   } catch (error) {
     console.error(error);
   }

@@ -3,7 +3,7 @@ export const languages = [
     { value: "German", label: "German" },
     { value: "Spanish", label: "Spanish" },
     { value: "French", label: "French" },
-    { value: "Mandarin", label: "Mandarin" },
+    { value: "Mandarin Chinese", label: "Mandarin Chinese" },
     { value: "Italian", label: "Italian" },
     { value: "Korean", label: "Korean" },
     { value: "Vietnamese", label: "Vietnamese" }
