@@ -6,7 +6,7 @@ export const List = styled.ul`
   display: flex;
   flex-direction: column;
   row-gap: 32px;
-  margin: 0 auto 20px auto;
+  margin: 32px auto 20px auto;
 `;
 
 export const ShowMoreBtn = styled.button`

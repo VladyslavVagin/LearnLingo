@@ -1,16 +1,16 @@
 import React from 'react'
 import Select from "react-select";
-import { languages } from '../../../../lib/info';
-import { SearchContainer, LabelSelect, SelectContainer } from './SelectLanguage.styled';
+import { levels } from '../../../../lib/info';
+import { SearchContainer, LabelSelect, SelectContainer } from '../SelectLanguage/SelectLanguage.styled';
 
 const SelectLanguage = () => {
   return (
     <SearchContainer>
     <SelectContainer>
-      <LabelSelect htmlFor="langs">Languages</LabelSelect>
+      <LabelSelect htmlFor="level">Level of knowledge</LabelSelect>
       <Select
-        options={languages}
-        placeholder={"Language"}
+        options={levels}
+        placeholder={"Level"}
         maxMenuHeight={272}
         isClearable={true}
         styles={{

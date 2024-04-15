@@ -1,11 +1,15 @@
 import React from 'react'
+import SelectLevel from './SelectLevel/SelectLevel'
 import SelectLanguage from './SelectLanguage/SelectLanguage'
+import { SearchSection } from './SearchBar.styled'
+
 
 const SearchBar = () => {
   return (
-    <div>
+    <SearchSection>
         <SelectLanguage/>
-    </div>
+        <SelectLevel/>
+    </SearchSection>
   )
 }
 
