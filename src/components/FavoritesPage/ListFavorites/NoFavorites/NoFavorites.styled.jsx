@@ -13,4 +13,5 @@ export const NoTeachersTitle = styled.h1`
     text-align: center;
     margin-bottom: 60px;
     color: var(--accent-color);
+    margin-top: 26px;
 `

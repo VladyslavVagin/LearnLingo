@@ -2,10 +2,14 @@ import styled from "styled-components";
 
 export const GeneralItem = styled.li`
   width: 100%;
-  padding: 24px;
+  padding: 10px;
   background-color: var(--white-color);
   border-radius: 24px;
   position: relative;
+
+  @media screen and (min-width: 480px) {
+    padding: 24px;
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -35,8 +39,14 @@ export const ImageContainer = styled.div`
 
 export const ListItemContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
-  column-gap: 48px;
+  row-gap: 20px;
+
+  @media screen and (min-width: 650px) {
+    flex-direction: row;
+    column-gap: 48px;
+  }
 `;
 export const TitleCardContainer = styled.div`
   h2 {
@@ -59,9 +69,15 @@ export const UpperContent = styled.div`
   max-width: 800px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  row-gap: 16px;
   margin-bottom: 32px;
+
+  @media screen and (min-width: 480px) {
+    flex-direction: row;
+  }
 
   @media screen and (min-width: 1124px) {
     justify-content: space-between;
@@ -73,8 +89,12 @@ export const ListData = styled.ul`
   flex-direction: column;
   align-items: flex-start;
   row-gap: 4px;
-  margin-left: auto;
-  margin-right: 10%;
+  margin: 0px;
+
+  @media screen and (min-width: 480px) {
+    margin-left: auto;
+    margin-right: 10%;
+  }
 
   @media screen and (min-width: 1124px) {
     flex-direction: row;

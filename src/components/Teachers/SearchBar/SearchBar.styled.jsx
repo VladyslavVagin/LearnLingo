@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SearchSection = styled.div`
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    column-gap: 20px;
-    margin-left: 60px;
+    gap: 20px;
 `

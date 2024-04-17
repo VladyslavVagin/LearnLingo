@@ -1,12 +1,13 @@
-import React from 'react'
-import FavoritesPage from '../../components/FavoritesPage/FavoritesPage'
+import React from "react";
+import FavoritesPage from "../../components/FavoritesPage/FavoritesPage";
+import { FavoriteContainer } from "./Favorites.styled";
 
 const Favorites = () => {
   return (
-    <div>
-      <FavoritesPage/>
-    </div>
-  )
-}
+    <FavoriteContainer>
+      <FavoritesPage />
+    </FavoriteContainer>
+  );
+};
 
-export default Favorites
+export default Favorites;

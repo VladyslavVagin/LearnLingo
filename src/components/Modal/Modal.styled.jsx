@@ -13,6 +13,7 @@ export const Backdrop = styled.div`
 export const FormModal = styled.div`
   background-color: var(--white-color);
   max-width: 565px;
+  width: 100%;
   border-radius: 30px;
   position: absolute;
   top: 50%;
