@@ -4,7 +4,7 @@ import TeacherItem from "../TeacherItem/TeacherItem";
 import { List, ShowMoreBtn } from "./ListTeachers.styled";
 import { getAllTeachers } from "../../../firebase/api";
 
-const ListTeachers = ({ filteredLangs }) => {
+const ListTeachers = ({ filtered }) => {
   const [teachersPerPage, setTeachersPerPage] = useState(4);
   const [teachers, setTeachers] = useState(null);
 
@@ -23,15 +23,15 @@ const ListTeachers = ({ filteredLangs }) => {
   return (
     <>
       <List>
-        {filteredLangs
-          ? filteredLangs?.map((teach, index) => (
+        {filtered
+          ? filtered?.map((teach, index) => (
               <TeacherItem key={index} teach={teach} />
             ))
           : teachers?.map((teach, index) => (
               <TeacherItem key={index} teach={teach} />
             ))}
       </List>
-      {(teachers?.length < 30 && !filteredLangs) && (
+      {(teachers?.length < 30 && !filtered) && (
         <ShowMoreBtn type="button" onClick={handleShowMore}>
           Show more
         </ShowMoreBtn>

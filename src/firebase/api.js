@@ -130,3 +130,29 @@ export async function getTeachersByLanguage(language) {
     console.error(error);
   }
 }
+
+//========================= GET ALL TEACHERS BY LEVELS
+export async function getTeachersByLvl(lvl) {
+  try {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, "teachers"));
+    const teachers = snapshot.val();
+    const filteredTeachersByLvl = Object.values(teachers).filter(teacher => teacher?.levels.includes(lvl));
+    return filteredTeachersByLvl;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+//========================= GET ALL TEACHERS BY PRICE
+export async function getTeachersByPrice(price) {
+  try {
+    const dbRef = ref(getDatabase());
+    const snapshot = await get(child(dbRef, "teachers"));
+    const teachers = snapshot.val();
+    const filteredTeachersByPrice = Object.values(teachers).filter(teacher => teacher.price_per_hour === +price);
+    return filteredTeachersByPrice;
+  } catch (error) {
+    console.error(error);
+  }
+}
