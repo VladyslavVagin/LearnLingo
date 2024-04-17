@@ -12,6 +12,7 @@ import {
   BookSubmitBtn,
 } from "./FormUser.styled";
 import { StyledError } from "../../../Modal/Login/Login.styled";
+import { toast } from "react-toastify";
 
 const valuesField = [
   {
@@ -41,7 +42,7 @@ const valuesField = [
   },
 ];
 
-const FormUser = () => {
+const FormUser = ({setShowBookModal}) => {
   const initialValues = {
     reason: "",
     name: "",
@@ -63,7 +64,12 @@ const FormUser = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={schema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {
+          if (values) {
+            setShowBookModal(false);
+            toast.success('Thank You, Tutor will contact You soon!');
+          }
+        }}
       >
         <Form>
           <WhatReason>

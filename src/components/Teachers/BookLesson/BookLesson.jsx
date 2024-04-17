@@ -20,7 +20,7 @@ const BookLesson = ({ setShowBookModal, name, surname, avatar_url }) => {
   return (
     <>
       <ModalBookLesson setShowBookModal={setShowBookModal}>
-        <BookForm name={name} surname={surname} avatar_url={avatar_url}/>
+        <BookForm name={name} surname={surname} avatar_url={avatar_url} setShowBookModal={setShowBookModal}/>
       </ModalBookLesson>
     </>
   );

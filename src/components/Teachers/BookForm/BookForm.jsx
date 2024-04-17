@@ -1,8 +1,9 @@
+// @ts-nocheck
 import React from "react";
 import { InfoTeacher, Paragraph, TitleForm } from "./BookForm.styled";
 import FormUser from "./FormUser/FormUser";
 
-const BookForm = ({ name, surname, avatar_url }) => {
+const BookForm = ({ name, surname, avatar_url, setShowBookModal }) => {
   return (
     <div>
       <TitleForm>Book trial lesson</TitleForm>
@@ -17,7 +18,7 @@ const BookForm = ({ name, surname, avatar_url }) => {
             <span>{name} {surname}</span>
         </div>
       </InfoTeacher>
-      <FormUser/>
+      <FormUser setShowBookModal={setShowBookModal}/>
     </div>
   );
 };
