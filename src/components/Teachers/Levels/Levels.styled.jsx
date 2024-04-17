@@ -15,9 +15,4 @@ export const LevelsList = styled.ul`
     line-height: 1.14286;
     color: var(--dark-color);
   }
-
-  :first-child {
-        background-color: var(--accent-color);
-        border: 1px solid var(--accent-color);
-    }
 `;

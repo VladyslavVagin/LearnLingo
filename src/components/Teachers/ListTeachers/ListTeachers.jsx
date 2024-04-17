@@ -6,6 +6,7 @@ import { getAllTeachers } from "../../../firebase/api";
 
 const ListTeachers = ({ filtered, lvl }) => {
   const [teachersPerPage, setTeachersPerPage] = useState(4);
+  const [favoritesPerPage, setFavoritesPerPage] = useState(4);
   const [teachers, setTeachers] = useState(null);
 
   useEffect(() => {
@@ -20,19 +21,28 @@ const ListTeachers = ({ filtered, lvl }) => {
     setTeachersPerPage((prev) => (prev += 4));
   };
 
+  const favoritesShowMore = () => {
+    setFavoritesPerPage((prev) => (prev += 4));
+  };
+
   return (
     <>
       <List>
         {filtered
-          ? filtered?.map((teach, index) => (
+          ? filtered?.slice(0, favoritesPerPage)?.map((teach, index) => (
               <TeacherItem key={index} teach={teach} lvl={lvl}/>
             ))
           : teachers?.map((teach, index) => (
               <TeacherItem key={index} teach={teach} lvl={lvl}/>
             ))}
       </List>
-      {(teachers?.length < 30 && !filtered) && (
+      {(teachers?.length < 30 && !filtered )&& (
         <ShowMoreBtn type="button" onClick={handleShowMore}>
+          Show more
+        </ShowMoreBtn>
+      )}
+         {filtered?.length > favoritesPerPage && (
+        <ShowMoreBtn type="button" onClick={favoritesShowMore}>
           Show more
         </ShowMoreBtn>
       )}
