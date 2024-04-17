@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const MainSection = styled.main`
   min-height: calc(100% - 92px);
+  background-color: var(--bg-lightblue);
 `;
 
 export const ContainerHeader = styled.div`

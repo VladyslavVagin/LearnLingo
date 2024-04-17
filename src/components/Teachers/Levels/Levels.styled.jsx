@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const LevelsList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   column-gap: 8px;
   margin-top: 32px;

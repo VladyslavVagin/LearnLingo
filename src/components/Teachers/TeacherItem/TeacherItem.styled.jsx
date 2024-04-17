@@ -56,21 +56,38 @@ export const TitleCardContainer = styled.div`
 `;
 
 export const UpperContent = styled.div`
-  width: 800px;
+  max-width: 800px;
+  width: 100%;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-bottom: 32px;
+
+  @media screen and (min-width: 1124px) {
+    justify-content: space-between;
+  }
 `;
 
 export const ListData = styled.ul`
   display: flex;
-  align-items: center;
-  column-gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 4px;
+  margin-left: auto;
+  margin-right: 10%;
+
+  @media screen and (min-width: 1124px) {
+    flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
+    margin: 0px;
+  }
 
   li:not(:last-of-type) {
-    border-right: 1px solid rgba(18, 20, 23, 0.2);
-    padding-right: 16px;
+    @media screen and (min-width: 1124px) {
+      border-right: 1px solid rgba(18, 20, 23, 0.2);
+      padding-right: 16px;
+    }
   }
 
   li {

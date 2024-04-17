@@ -188,7 +188,7 @@ const TeacherItem = ({ teach, lvl }) => {
           </div>
         </div>
       </ListItemContainer>
-      <BtnAddFavorite type="button" id={id} onClick={handleAddFavorite}>
+      <BtnAddFavorite type="button" id={id} onClick={isFavorite ? handleDelete : handleAddFavorite}>
         <svg width={26} height={26} style={isFavorite ? {fill: "var(--accent-color)", stroke: "var(--accent-color)"} : {fill: 'transparent'}}>
           <use xlinkHref={`${sprite}#icon-heart`}></use>
         </svg>
