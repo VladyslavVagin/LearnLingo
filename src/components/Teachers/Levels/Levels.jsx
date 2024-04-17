@@ -1,11 +1,11 @@
 import React from "react";
 import { LevelsList } from "./Levels.styled";
 
-const Levels = ({ levels }) => {
+const Levels = ({ levels, lvl }) => {
   return (
     <LevelsList>
-      {levels.map((lvl, index) => (
-        <li key={index}>#{lvl}</li>
+      {levels.map((level, index) => (
+        <li key={index} style={{ backgroundColor: level === lvl ? "var(--accent-color)" : "transparent", border: level === lvl ? "var(--accent-color)" : "rgba(18, 20, 23, 0.2)"}}>#{level}</li>
       ))}
     </LevelsList>
   );

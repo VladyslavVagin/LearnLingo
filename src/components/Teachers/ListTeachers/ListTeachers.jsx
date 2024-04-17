@@ -4,7 +4,7 @@ import TeacherItem from "../TeacherItem/TeacherItem";
 import { List, ShowMoreBtn } from "./ListTeachers.styled";
 import { getAllTeachers } from "../../../firebase/api";
 
-const ListTeachers = ({ filtered }) => {
+const ListTeachers = ({ filtered, lvl }) => {
   const [teachersPerPage, setTeachersPerPage] = useState(4);
   const [teachers, setTeachers] = useState(null);
 
@@ -25,10 +25,10 @@ const ListTeachers = ({ filtered }) => {
       <List>
         {filtered
           ? filtered?.map((teach, index) => (
-              <TeacherItem key={index} teach={teach} />
+              <TeacherItem key={index} teach={teach} lvl={lvl}/>
             ))
           : teachers?.map((teach, index) => (
-              <TeacherItem key={index} teach={teach} />
+              <TeacherItem key={index} teach={teach} lvl={lvl}/>
             ))}
       </List>
       {(teachers?.length < 30 && !filtered) && (

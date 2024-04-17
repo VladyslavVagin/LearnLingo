@@ -35,7 +35,7 @@ export function whenUserLogin(dataForm, setShowLogin) {
       if (res.user.emailVerified) {
         setShowLogin(false);
         toast.success(`Welcome ${res.user?.displayName} to LearnLingo`);
-        localStorage.setItem('isLogin', 'true'); 
+        localStorage.setItem("isLogin", "true");
       } else {
         toast.warn("Please, verify Your email!");
       }
@@ -46,7 +46,7 @@ export function whenUserLogin(dataForm, setShowLogin) {
 // ======================== USER LOGOUT
 export function whenLogOut() {
   auth.signOut();
-  localStorage.removeItem('isLogin');
+  localStorage.removeItem("isLogin");
 }
 
 //========================= GET USER DATA
@@ -81,8 +81,9 @@ export async function addTeacher(objectTeacher) {
   const userData = getUserData();
   const userId = userData?.uid;
   const db = getDatabase();
-  let teachersArray = (await get(ref(db, `users/${userId}/teachers`))).val() || [];
-  if(teachersArray?.length < 1) {
+  let teachersArray =
+    (await get(ref(db, `users/${userId}/teachers`))).val() || [];
+  if (teachersArray?.length < 1) {
     teachersArray = [objectTeacher];
   } else {
     teachersArray = [...teachersArray, objectTeacher];
@@ -97,7 +98,9 @@ export async function removeTeacher(teacherID) {
   const db = getDatabase();
   try {
     const arrayFavorites = await getFavorites();
-    const updatedFavorites = arrayFavorites?.filter(favorite => favorite.id !== teacherID);
+    const updatedFavorites = arrayFavorites?.filter(
+      (favorite) => favorite.id !== teacherID
+    );
     set(ref(db, `users/${userId}/teachers`), updatedFavorites);
     return updatedFavorites;
   } catch (error) {
@@ -111,7 +114,7 @@ export async function getFavorites() {
   const userId = userData?.uid;
   const db = getDatabase();
   try {
-    const snapshot = await get(child(ref(db),`users/${userId}/teachers`));
+    const snapshot = await get(child(ref(db), `users/${userId}/teachers`));
     return snapshot.val();
   } catch (error) {
     console.error(error);
@@ -124,7 +127,9 @@ export async function getTeachersByLanguage(language) {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, "teachers"));
     const teachers = snapshot.val();
-    const filteredTeachers = Object.values(teachers).filter(teacher => teacher.languages.includes(language));
+    const filteredTeachers = Object.values(teachers).filter((teacher) =>
+      teacher.languages.includes(language)
+    );
     return filteredTeachers;
   } catch (error) {
     console.error(error);
@@ -137,7 +142,9 @@ export async function getTeachersByLvl(lvl) {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, "teachers"));
     const teachers = snapshot.val();
-    const filteredTeachersByLvl = Object.values(teachers).filter(teacher => teacher?.levels.includes(lvl));
+    const filteredTeachersByLvl = Object.values(teachers).filter((teacher) =>
+      teacher?.levels.includes(lvl)
+    );
     return filteredTeachersByLvl;
   } catch (error) {
     console.error(error);
@@ -150,7 +157,9 @@ export async function getTeachersByPrice(price) {
     const dbRef = ref(getDatabase());
     const snapshot = await get(child(dbRef, "teachers"));
     const teachers = snapshot.val();
-    const filteredTeachersByPrice = Object.values(teachers).filter(teacher => teacher.price_per_hour === +price);
+    const filteredTeachersByPrice = Object.values(teachers).filter(
+      (teacher) => teacher.price_per_hour === +price
+    );
     return filteredTeachersByPrice;
   } catch (error) {
     console.error(error);
@@ -158,7 +167,7 @@ export async function getTeachersByPrice(price) {
 }
 
 //========================= GET ALL TEACHERS BY LANGUAGE, LEVEL AND PRICE
-export async function getAllFiltered (language, lvl, price) {
+export async function getAllFiltered(language, lvl, price) {
   try {
     if (language && !lvl && !price) {
       let teachersLang = await getTeachersByLanguage(language);
@@ -172,26 +181,43 @@ export async function getAllFiltered (language, lvl, price) {
     } else if (language && lvl && !price) {
       let teachersLang = await getTeachersByLanguage(language);
       let teachersLvl = await getTeachersByLvl(lvl);
-      const intersectedTeachers = teachersLang.filter(teacherLvl => {
-        return teachersLvl.some(teacherLang => teacherLang.id === teacherLvl.id);
+      const intersectedTeachers = teachersLang.filter((teacherLvl) => {
+        return teachersLvl.some(
+          (teacherLang) => teacherLang.id === teacherLvl.id
+        );
       });
       return intersectedTeachers;
     } else if (lvl && price && !language) {
       let teachersLvl = await getTeachersByLvl(lvl);
       let teachersPrice = await getTeachersByPrice(price);
-      const intersectedTeachers = teachersLvl.filter(teacherLvl => {
-        return teachersPrice.some(teacherPrice => teacherPrice.id === teacherLvl.id);
+      const intersectedTeachers = teachersLvl.filter((teacherLvl) => {
+        return teachersPrice.some(
+          (teacherPrice) => teacherPrice.id === teacherLvl.id
+        );
       });
       return intersectedTeachers;
-    } else if(language && price && !lvl) {
+    } else if (language && price && !lvl) {
       let teachersLang = await getTeachersByLanguage(language);
       let teachersPrice = await getTeachersByPrice(price);
-      const intersectedTeachers = teachersLang.filter(teacherLang => {
-        return teachersPrice.some(teacherPrice => teacherLang.id === teacherPrice.id);
+      const intersectedTeachers = teachersLang.filter((teacherLang) => {
+        return teachersPrice.some(
+          (teacherPrice) => teacherLang.id === teacherPrice.id
+        );
       });
+      return intersectedTeachers;
+    } else if (language && lvl && price) {
+      let teachersLang = await getTeachersByLanguage(language);
+      let teachersLvl = await getTeachersByLvl(lvl);
+      let teachersPrice = await getTeachersByPrice(price);
+      const intersectedTeachers = teachersLang.filter((teacherLang) => {
+        return teachersLvl.some((teacherLvl) => {
+          return teachersPrice.some((teacherPrice) => teacherPrice.id === teacherLvl.id && teacherLvl.id === teacherLang.id);
+        });
+      });
+      
       return intersectedTeachers;
     }
   } catch (error) {
-    
+    console.error(error);
   }
 }

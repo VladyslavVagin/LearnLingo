@@ -24,7 +24,7 @@ import {
 } from "./TeacherItem.styled";
 
 
-const TeacherItem = ({ teach }) => {
+const TeacherItem = ({ teach, lvl }) => {
   const [showInfo, setShowInfo] = useState(false);
   const [favArray, setFavArray] = useState(null);
   const [showBookModal, setShowBookModal] = useState(false);
@@ -183,7 +183,7 @@ const TeacherItem = ({ teach }) => {
                 Read more
               </ReadMoreBtn>
             )}
-            <Levels levels={levels} />
+            <Levels levels={levels} lvl={lvl}/>
             {showInfo && <BookLessonBtn setShowBookModal={setShowBookModal} />}
           </div>
         </div>

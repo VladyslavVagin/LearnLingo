@@ -11,9 +11,7 @@ const Teachers = () => {
   const [lvl, setLvl] = useState(null);
   const [price, setPrice] = useState(null);
 
-  console.log(language, price, lvl);
-
-  // local state for data's arrays by choosing one select
+  // local state for filtered teachers
   const [filtered, setFiltered] = useState(null);
 
   useEffect(() => {
@@ -36,7 +34,7 @@ const Teachers = () => {
         setLvl={setLvl}
         setPrice={setPrice}
       />
-      <ListTeachers filtered={filtered} />
+      <ListTeachers filtered={filtered} lvl={lvl}/>
     </PageTeachers>
   );
 };
