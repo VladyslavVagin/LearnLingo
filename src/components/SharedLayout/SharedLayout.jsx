@@ -1,6 +1,8 @@
+// @ts-nocheck
 import React, { Suspense, useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { Outlet, useLocation } from "react-router-dom";
+import Loader from "../Loader/Loader";
 import Logo from "./Logo/Logo";
 import NavMenu from "./NavMenu/NavMenu";
 import Buttons from "./Buttons/Buttons";
@@ -53,7 +55,7 @@ const SharedLayout = () => {
       <header>
         <ContainerHeader>
           <Logo />
-          <NavMenu/>
+          <NavMenu />
           <Buttons
             whenLogOut={whenLogOut}
             setShowLogin={setShowLogin}
@@ -64,10 +66,16 @@ const SharedLayout = () => {
             setIsShowMobile={setIsShowMobile}
           />
         </ContainerHeader>
-        {isShowMobile && <MobileMenu />}
+        {isShowMobile && (
+          <MobileMenu
+            whenLogOut={whenLogOut}
+            setShowLogin={setShowLogin}
+            setShowRegister={setShowRegister}
+          />
+        )}
       </header>
       <MainSection>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<Loader/>}>
           <Outlet />
         </Suspense>
       </MainSection>
