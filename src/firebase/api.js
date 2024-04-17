@@ -156,3 +156,42 @@ export async function getTeachersByPrice(price) {
     console.error(error);
   }
 }
+
+//========================= GET ALL TEACHERS BY LANGUAGE, LEVEL AND PRICE
+export async function getAllFiltered (language, lvl, price) {
+  try {
+    if (language && !lvl && !price) {
+      let teachersLang = await getTeachersByLanguage(language);
+      return teachersLang;
+    } else if (lvl && !language && !price) {
+      let teachersLvl = await getTeachersByLvl(lvl);
+      return teachersLvl;
+    } else if (price && !language && !lvl) {
+      let teachersPrice = await getTeachersByPrice(price);
+      return teachersPrice;
+    } else if (language && lvl && !price) {
+      let teachersLang = await getTeachersByLanguage(language);
+      let teachersLvl = await getTeachersByLvl(lvl);
+      const intersectedTeachers = teachersLang.filter(teacherLvl => {
+        return teachersLvl.some(teacherLang => teacherLang.id === teacherLvl.id);
+      });
+      return intersectedTeachers;
+    } else if (lvl && price && !language) {
+      let teachersLvl = await getTeachersByLvl(lvl);
+      let teachersPrice = await getTeachersByPrice(price);
+      const intersectedTeachers = teachersLvl.filter(teacherLvl => {
+        return teachersPrice.some(teacherPrice => teacherPrice.id === teacherLvl.id);
+      });
+      return intersectedTeachers;
+    } else if(language && price && !lvl) {
+      let teachersLang = await getTeachersByLanguage(language);
+      let teachersPrice = await getTeachersByPrice(price);
+      const intersectedTeachers = teachersLang.filter(teacherLang => {
+        return teachersPrice.some(teacherPrice => teacherLang.id === teacherPrice.id);
+      });
+      return intersectedTeachers;
+    }
+  } catch (error) {
+    
+  }
+}
