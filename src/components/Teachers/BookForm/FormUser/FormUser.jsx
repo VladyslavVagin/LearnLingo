@@ -50,8 +50,6 @@ const FormUser = ({setShowBookModal}) => {
     phone: "",
   };
 
-  const patternEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
   const schema = yup.object().shape({
     reason: yup.string().required(),
     name: yup.string().min(5).max(24).required(),
@@ -99,7 +97,6 @@ const FormUser = ({setShowBookModal}) => {
               type="email"
               name="email"
               placeholder="Email"
-              pattern={patternEmail}
               required
               aria-label="Input for typing Email"
             />
