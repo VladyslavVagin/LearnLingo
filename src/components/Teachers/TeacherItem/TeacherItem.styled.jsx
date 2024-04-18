@@ -6,6 +6,7 @@ export const GeneralItem = styled.li`
   background-color: var(--white-color);
   border-radius: 24px;
   position: relative;
+  animation: slideRight 1000ms ease 1;
 
   @media screen and (min-width: 480px) {
     padding: 24px;

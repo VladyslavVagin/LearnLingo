@@ -29,6 +29,18 @@ export const ImageBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  animation: slideUp 1000ms ease 1;
+
+  @keyframes slideUp {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
 `;
 
 export const IconAppleContainer = styled.div`

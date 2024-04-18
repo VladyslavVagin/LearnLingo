@@ -19,6 +19,7 @@ export const Title = styled.h1`
   line-height: 1.16667;
   letter-spacing: -0.02em;
   margin-bottom: 26px;
+  animation: slideLeft 1000ms ease 1;
 
   @media screen and (min-width: 524px) {
     font-size: 48px;
@@ -30,6 +31,17 @@ export const Title = styled.h1`
     font-weight: 400;
     background-color: var(--accent-light);
   }
+
+  @keyframes slideLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
 `;
 
 export const TitleText = styled.p`
@@ -39,6 +51,7 @@ export const TitleText = styled.p`
   line-height: 1.375;
   letter-spacing: -0.02em;
   margin-bottom: 64px;
+  animation: slideLeft 1400ms ease 1;
 `;
 
 export const GetStartedBtn = styled(Link)`
@@ -52,6 +65,7 @@ export const GetStartedBtn = styled(Link)`
   color: var(--dark-color);
   line-height: 1.55556;
   transition: var(--animation-hover);
+  animation: slideLeft 1800ms ease 1;
 
   @media screen and (min-width: 524px) {
     padding: 16px 88px;

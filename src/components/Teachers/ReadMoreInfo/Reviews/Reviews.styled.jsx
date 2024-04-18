@@ -24,6 +24,7 @@ export const ImgContainer = styled.div`
   display: flex;
   align-items: flex-start;
   column-gap: 12px;
+  animation: appearLeft 1000ms ease 1;
 
   img {
     border-radius: 50%;
@@ -54,4 +55,15 @@ export const Reviewer = styled.div`
       line-height: 1.28571;
     }
   }
+
+  @keyframes appearLeft {
+        0% {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0%);
+        }
+    }
 `;

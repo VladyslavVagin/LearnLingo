@@ -23,6 +23,18 @@ export const FormModal = styled.div`
   z-index: 102;
   height: 100%;
   overflow-y: scroll;
+  animation: appearModal 1000ms ease 1;
+
+  @keyframes appearModal {
+    0% {
+      opacity: 0;
+      top: -100%;
+    }
+    100% {
+      opacity: 1;
+      top: 50%;
+    }
+  }
 `;
 
 export const CloseBtn = styled.button`
