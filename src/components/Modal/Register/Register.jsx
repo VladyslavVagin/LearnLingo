@@ -13,8 +13,6 @@ const initialValues = {
   password: "",
 };
 
-const patternEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-
 const schema = yup.object().shape({
   name: yup.string()
     .min(5)
@@ -72,7 +70,6 @@ const Register = ({ setShowRegister }) => {
               type="email"
               name="email"
               placeholder="Email"
-              pattern={patternEmail}
               required
               aria-label="Input for typing your email"
             />
