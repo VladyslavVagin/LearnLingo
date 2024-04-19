@@ -7,6 +7,7 @@ export const ImagePartContainer = styled.div`
   height: 400px;
   background-color: var(--accent-light);
   border-radius: 30px;
+  overflow: hidden;
 
   @media screen and (min-width: 524px) {
     height: 498px;
@@ -56,13 +57,13 @@ export const IconAppleContainer = styled.div`
   @media screen and (min-width: 438px) {
     width: 361px;
     height: 176px;
-    margin-top: -64px;
-    bottom: 0;
+    margin-top: -100px;
+    bottom: -36px;
   }
 
   svg {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
   }

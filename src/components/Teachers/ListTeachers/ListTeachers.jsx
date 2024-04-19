@@ -1,8 +1,9 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import TeacherItem from "../TeacherItem/TeacherItem";
-import { List, ShowMoreBtn } from "./ListTeachers.styled";
 import { getAllTeachers } from "../../../firebase/api";
+import NoFindTeacher from "../NoFindTeacher/NoFindTeacher";
+import { List, ShowMoreBtn } from "./ListTeachers.styled";
 
 const ListTeachers = ({ filtered, lvl }) => {
   const [teachersPerPage, setTeachersPerPage] = useState(4);
@@ -35,6 +36,7 @@ const ListTeachers = ({ filtered, lvl }) => {
           : teachers?.map((teach, index) => (
               <TeacherItem key={index} teach={teach} lvl={lvl}/>
             ))}
+            {filtered?.length === 0 && <NoFindTeacher/>}
       </List>
       {(teachers?.length < 30 && !filtered )&& (
         <ShowMoreBtn type="button" onClick={handleShowMore}>

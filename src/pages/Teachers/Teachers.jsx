@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import ListTeachers from "../../components/Teachers/ListTeachers/ListTeachers";
 import SearchBar from "../../components/Teachers/SearchBar/SearchBar";
 import { getAllFiltered } from "../../firebase/api";
-import { PageTeachers } from "./Teachers.styled";
+import { PageCont, PageTeachers } from "./Teachers.styled";
 
 const Teachers = () => {
   // local state for values of search selects
@@ -29,12 +29,14 @@ const Teachers = () => {
 
   return (
     <PageTeachers>
-      <SearchBar
-        setLanguage={setLanguage}
-        setLvl={setLvl}
-        setPrice={setPrice}
-      />
-      <ListTeachers filtered={filtered} lvl={lvl}/>
+      <PageCont>
+        <SearchBar
+          setLanguage={setLanguage}
+          setLvl={setLvl}
+          setPrice={setPrice}
+        />
+        <ListTeachers filtered={filtered} lvl={lvl} />
+      </PageCont>
     </PageTeachers>
   );
 };
