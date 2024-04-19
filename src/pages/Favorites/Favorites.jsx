@@ -1,11 +1,13 @@
 import React from "react";
 import FavoritesPage from "../../components/FavoritesPage/FavoritesPage";
-import { FavoriteContainer } from "./Favorites.styled";
+import { FavoriteContainer, PageCont } from "./Favorites.styled";
 
 const Favorites = () => {
   return (
     <FavoriteContainer>
-      <FavoritesPage />
+      <PageCont>
+        <FavoritesPage />
+      </PageCont>
     </FavoriteContainer>
   );
 };
